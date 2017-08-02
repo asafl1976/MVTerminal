@@ -1,0 +1,441 @@
+// ODPGCtrlRWRegModelessDlg.cpp : implementation file
+//
+
+#include "stdafx.h"
+#include "MVTerminal.h"
+#include "MarvellDeviceSysProfilerHwModuleModelessDlg.h"
+#include "MarvellDeviceSysProfilerHwModule.h"
+#include "ProfilerEventManager.h"
+#include "HwModuleCtrlI2CUnit.h"
+
+UINT UpdateGraphsThread(LPVOID pParam);
+
+// CMarvellDeviceHwModuleModelessDlg dialog
+int CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos = 0;
+
+CMarvellDeviceSysProfilerHwModuleModelessDlg::CMarvellDeviceSysProfilerHwModuleModelessDlg(CWnd* pParent /*=NULL*/)
+	: CMarvellDeviceSysProfilerHwModuleBasicDlg(CMarvellDeviceSysProfilerHwModuleModelessDlg::IDD, pParent)
+{
+	m_hSemForStopThread  = NULL;
+	m_hSemForWaitThread  = NULL;
+
+	m_nSampleRate        = 1;
+	m_nGridSize          = 11;
+	m_nSampleInterval    = 4;
+	m_bUpdateGraph       = true;
+	m_bShowGrid          = true;
+	m_sMeasureUnits	     = "";
+
+	m_nSampleArray1Index = 0;
+	m_nSampleArray2Index = 0;
+	m_nSampleArray3Index = 0;
+	m_nSampleArray4Index = 0;
+
+	m_bSampleArray1Overlaped = false;
+	m_bSampleArray2Overlaped = false;
+	m_bSampleArray3Overlaped = false;
+	m_bSampleArray4Overlaped = false;
+
+	memset(m_sampleArray1,0,SYS_PROFILER_SAMPLE_ARRAY_SIZE);
+	memset(m_sampleArray2,0,SYS_PROFILER_SAMPLE_ARRAY_SIZE);
+	memset(m_sampleArray3,0,SYS_PROFILER_SAMPLE_ARRAY_SIZE);
+	memset(m_sampleArray4,0,SYS_PROFILER_SAMPLE_ARRAY_SIZE);
+
+	// Load settings from file
+	if(LoadSettingsFromFile() == FALSE) 
+	{		
+		m_bLoadFileOnStartup = false;
+	}
+}
+
+CMarvellDeviceSysProfilerHwModuleModelessDlg::~CMarvellDeviceSysProfilerHwModuleModelessDlg()
+{
+}
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::LoadSettingsFromFile()
+{
+	CString			sLine;
+	CStdioFile		cfgFile;
+
+	if(cfgFile.Open(m_sAppDataPath +  "\\sysProfilerSettings.ini", CFile::modeRead | CFile::typeText ) == FALSE) 
+		return FALSE;
+
+	cfgFile.ReadString(sLine);
+	if(sLine.Find("=TRUE") != -1)
+	{
+		m_bLoadFileOnStartup = true;
+		cfgFile.ReadString(sLine);
+		m_sStartupFilePath = sLine;
+	}
+	if(sLine.Find("=FALSE") != -1)
+	{
+		m_bLoadFileOnStartup = false;
+	}
+	cfgFile.Close();
+	return TRUE;
+}
+
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::SaveSettingsToFile()
+{
+	CStdioFile  cfgFile;
+
+	// Load settings from file
+	if(cfgFile.Open(m_sAppDataPath +  "\\sysProfilerSettings.ini", 
+		              CFile::modeCreate | CFile::modeWrite | CFile::typeText ) != TRUE) 
+	{
+		return FALSE;
+	}
+
+	if(m_bLoadFileOnStartup == true)
+		cfgFile.WriteString("LoadFileOnStartup=TRUE\n");
+	else
+		cfgFile.WriteString("LoadFileOnStartup=FALSE\n");
+
+	cfgFile.WriteString(m_sStartupFilePath + "\n");
+
+	cfgFile.Close();
+	return TRUE; 
+}
+
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CMarvellDeviceSysProfilerHwModuleBasicDlg::DoDataExchange(pDX);
+}
+
+BEGIN_MESSAGE_MAP(CMarvellDeviceSysProfilerHwModuleModelessDlg, CMarvellDeviceSysProfilerHwModuleBasicDlg)
+	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDOK, OnBnClickedOk)
+	ON_BN_CLICKED(IDCANCEL, OnCancel)
+END_MESSAGE_MAP()
+
+void  CMarvellDeviceSysProfilerHwModuleModelessDlg::AlignWindow()
+{
+    CRect rectFrame, rectDlg;
+    CWnd* pMainWnd = AfxGetMainWnd();
+    if(pMainWnd != NULL)
+    {
+        pMainWnd->GetClientRect(rectFrame);
+        pMainWnd->ClientToScreen(rectFrame);
+        GetWindowRect(rectDlg);
+
+        int nXPos = rectFrame.left + (rectFrame.Width() / 2) 
+                                   - (rectDlg.Width() / 2);
+        int nYPos = rectFrame.top + (rectFrame.Height() / 3) 
+                                  - (rectDlg.Height() / 3);
+        
+		//Cascade windows
+		nXPos += CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos;
+        nYPos += CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos;
+		CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos += 20;
+		if(CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos == 220)
+			CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos = 0;
+
+	    ::SetWindowPos(m_hWnd, HWND_TOP, nXPos, nYPos, 
+          rectDlg.Width(), rectDlg.Height(), SWP_NOCOPYBITS);
+    }
+}
+
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::OnInitDialog()
+{
+	CMarvellDeviceSysProfilerHwModuleBasicDlg::OnInitDialog();
+
+	if(m_pMarvellDeviceSysProfilerHwModule != NULL)
+	{
+		SetWindowText(m_pMarvellDeviceSysProfilerHwModule->GetDisplayName());
+	}
+	else
+	{
+		AfxMessageBox("m_pMarvellDeviceSysProfilerHwModule = NULL");
+	}
+	m_loadEventsBtn.SetTheme(xtpButtonThemeOffice2000);
+
+	UpdateGraphs();
+     // Create thread
+    //m_pUpdateGraphThread = AfxBeginThread(UpdateGraphsThread, (LPVOID)this,THREAD_PRIORITY_NORMAL,0,CREATE_SUSPENDED);
+	CProfilerEventManager::GetInstance().RegisterObserver(this);
+	CProfilerEventManager::GetInstance().SetHwModuleItem(m_pMarvellDeviceSysProfilerHwModule);
+
+	CheckDlgButton(IDC_RELOAD_LAST_EVENTS_CHECK,m_bLoadFileOnStartup);
+	if(m_bLoadFileOnStartup == true)
+	{
+		CheckDlgButton(IDC_RELOAD_LAST_EVENTS_CHECK,true);
+		LoadEvents(m_sStartupFilePath);
+	}
+
+	//Set I2C unit to 200kHZ
+	CHwModuleCtrlI2CUnit* pI2CUnit = (CHwModuleCtrlI2CUnit*)m_pMarvellDeviceSysProfilerHwModule->GetParentUnit();
+	int nFreq = pI2CUnit->GetFrequency();
+	if(nFreq < 140000)
+	{	
+		pI2CUnit->SetFrequency(150000);
+		if(pI2CUnit->GetFrequency() < 140000)
+		{
+			pI2CUnit->SetFrequency(100000);
+			CString s;
+			s.Format("%d",nFreq);
+			AfxMessageBox("Attempt to modify I2C unit frequency to 200Khz failed... falling back to 100Khz ",MB_ICONASTERISK);
+		}
+	}
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnDestroy()
+{
+	SaveSettingsToFile();
+	//Notify owner (the TreeView control) that dlg is destroyed
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_ITEM_MODELESS_DLG_DESTROYED,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+    if(m_bUpdateGraph == true)
+	{	
+		m_bUpdateGraph = false;
+		// Trigger thread to stop
+		::SetEvent(m_hSemForStopThread);
+
+		//Wait for thread to end
+		::WaitForSingleObject(m_hSemForWaitThread, INFINITE);
+	}
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_DESELECT,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+	CProfilerEventManager::GetInstance().UnRegisterObserver(this);
+	CMarvellDeviceSysProfilerHwModuleBasicDlg::OnDestroy();
+}
+
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnCancel()
+{
+	AfxMessageBox("OnCancel");
+	DestroyWindow();
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnBnClickedOk()
+{
+	CString sBtnText;
+	m_startStopBtn.GetWindowText(sBtnText);
+	if(sBtnText == "Start")
+	{
+		m_bUpdateGraph = true;
+		m_startStopBtn.SetWindowText("Pause");
+		m_loadEventsBtn.EnableWindow(FALSE);
+	
+		if(m_hSemForStopThread != NULL)
+			::CloseHandle(m_hSemForStopThread);
+
+		if(m_hSemForWaitThread != NULL)
+		    ::CloseHandle(m_hSemForWaitThread);
+
+		m_hSemForStopThread = CreateEvent(0, TRUE, FALSE, 0);
+		m_hSemForWaitThread = CreateEvent(0, TRUE, FALSE, 0);
+
+		AfxBeginThread(UpdateGraphsThread, (LPVOID)this,THREAD_PRIORITY_NORMAL);
+	}
+	if(sBtnText == "Pause")
+	{
+		m_bUpdateGraph = false;
+		m_startStopBtn.SetWindowText("Start");
+		m_loadEventsBtn.EnableWindow(TRUE);
+		::SetEvent(m_hSemForStopThread);
+	}
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::PostNcDestroy()
+{
+	CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos -= 20;
+	if(CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos < 0)
+		CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos = 0;
+
+	delete this;
+}
+
+// CODPGHwModuleModelessDlg message handlers
+
+void  CMarvellDeviceSysProfilerHwModuleModelessDlg::SetHwModuleItem(CHwModuleItem *pItem)
+{
+	m_pMarvellDeviceSysProfilerHwModule = dynamic_cast<CMarvellDeviceSysProfilerHwModule*>(pItem);
+}
+
+
+BOOL  CMarvellDeviceSysProfilerHwModuleModelessDlg::Create(CWnd* pParentWnd)
+{
+	return CDialog::Create(CMarvellDeviceSysProfilerHwModuleModelessDlg::IDD,pParentWnd);
+}
+
+CBasicItemDlg *CMarvellDeviceSysProfilerHwModuleModelessDlg::Clone()
+{
+	return new CMarvellDeviceSysProfilerHwModuleModelessDlg();
+}
+
+
+UINT UpdateGraphsThread(LPVOID pParam)
+{
+	CMarvellDeviceSysProfilerHwModuleModelessDlg *phObjectHandle = static_cast<CMarvellDeviceSysProfilerHwModuleModelessDlg *>(pParam);
+
+	::SendMessage(phObjectHandle->GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_SELECT,(WPARAM)phObjectHandle->m_pMarvellDeviceSysProfilerHwModule,NULL);
+	//System init (typically will be exected once)
+	CProfilerEventManager::GetInstance().SystemInit();
+	CProfilerEventManager::GetInstance().InitTimeStamp();
+
+
+	AfxMessageBox("Uncheck before and after");
+
+	while(::WaitForSingleObject(phObjectHandle->m_hSemForStopThread, 0) != WAIT_OBJECT_0)
+	{
+		if(phObjectHandle->UpdateUIGraphData() == FALSE)
+		{
+			break;
+		}
+	}
+	::SendMessage(phObjectHandle->GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_DESELECT,(WPARAM)phObjectHandle->m_pMarvellDeviceSysProfilerHwModule,NULL);
+	phObjectHandle->m_startStopBtn.SetWindowText("Start");
+	phObjectHandle->m_loadEventsBtn.EnableWindow(TRUE);
+	::SetEvent(phObjectHandle->m_hSemForWaitThread);
+	return 0;
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::UpdateGraph(CSysProfilerEvent* pEvent, int nGraphIndex,double fEventSampleData, double fSampleRate)
+{
+	CSysProfilerTreeView *pTreeView;
+	C2DPushGraph         *pGraph;
+	int                   nLine,nGraphStaticID,*pSampleArrayIndex;
+	UINT32				  *pSampleArray;
+	bool				  *pSampleArrayOverlaped;
+
+	switch(nGraphIndex)
+	{
+	case 1:
+		pTreeView = &m_eventsTreeView1;
+		pGraph = &m_PushGraph1;
+		nLine = PUSHGRAPH1_LINE;
+		nGraphStaticID = IDC_EVENT_GRAPH1_STATIC;
+		pSampleArray = m_sampleArray1;
+		pSampleArrayIndex = &m_nSampleArray1Index;
+		pSampleArrayOverlaped = &m_bSampleArray1Overlaped;
+		break;
+	case 2:
+		pTreeView = &m_eventsTreeView2;
+		pGraph = &m_PushGraph2;
+		nLine = PUSHGRAPH2_LINE;
+		nGraphStaticID = IDC_EVENT_GRAPH2_STATIC;
+		pSampleArray = m_sampleArray2;
+		pSampleArrayIndex = &m_nSampleArray2Index;
+		pSampleArrayOverlaped = &m_bSampleArray2Overlaped;
+		break;
+	case 3:
+		pTreeView = &m_eventsTreeView3;
+		pGraph = &m_PushGraph3;
+		nLine = PUSHGRAPH3_LINE;
+		nGraphStaticID = IDC_EVENT_GRAPH3_STATIC;
+		pSampleArray = m_sampleArray3;
+		pSampleArrayIndex = &m_nSampleArray3Index;
+		pSampleArrayOverlaped = &m_bSampleArray3Overlaped;
+		break;
+	case 4:
+		pTreeView = &m_eventsTreeView4;
+		pGraph = &m_PushGraph4;
+		nLine = PUSHGRAPH4_LINE;
+		nGraphStaticID = IDC_EVENT_GRAPH4_STATIC;
+		pSampleArray = m_sampleArray4;
+		pSampleArrayIndex = &m_nSampleArray4Index;
+		pSampleArrayOverlaped = &m_bSampleArray4Overlaped;
+		break;
+	default:
+		return;
+	}
+	CString sSampleRate;
+	CString sSampleData;
+	CString sUnits = pEvent->GetUnits();
+	CString sTitle = pEvent->GetName();
+
+	sSampleRate.Format("%0.2fms",fSampleRate);
+	sSampleData.Format("  |  %d%s",(int)fEventSampleData,sUnits);
+
+	pGraph->Push((int)fEventSampleData,nGraphIndex,pEvent->GetGraphLineColor());
+	pSampleArray[(*pSampleArrayIndex)] = (UINT32)fEventSampleData;
+	(*pSampleArrayIndex) = (*pSampleArrayIndex) + 1;
+	if((*pSampleArrayIndex) == SYS_PROFILER_SAMPLE_ARRAY_SIZE)
+	{
+		(*pSampleArrayOverlaped) = true;
+		(*pSampleArrayIndex) = 0;
+	}
+	pGraph->Update();
+
+	sTitle = sTitle + sSampleData + "  |  " + sSampleRate;
+	SetDlgItemText(nGraphStaticID,sTitle);
+}
+
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::UpdateUIGraphData()
+{
+	try
+	{
+		double fSampleRateMS = CProfilerEventManager::GetInstance().GetTimeStamp();
+
+		//Execute something before all events
+
+
+		//CProfilerEventManager::GetInstance().OnEventsBegin();
+
+
+		//Loop all active events and push data to graphs
+		vector<CSysProfilerEvent*>::iterator iter = m_activeEventsVec.begin(), endIter = m_activeEventsVec.end();
+		for(; iter != endIter; iter++)
+		{
+			if((*iter)->m_nRC == 0)
+				continue;
+
+			//double fEventSampleData = (*iter)->GetData();
+			double fEventSampleData = 0;
+			if(m_eventsTreeView1.GetSelectedEvent() == (*iter))
+			{
+				UpdateGraph((*iter),1,fEventSampleData,fSampleRateMS);
+			}
+			if(m_eventsTreeView2.GetSelectedEvent() == (*iter))
+			{
+				UpdateGraph((*iter),2,fEventSampleData,fSampleRateMS);
+			}
+			if(m_eventsTreeView3.GetSelectedEvent() == (*iter))
+			{
+				UpdateGraph((*iter),3,fEventSampleData,fSampleRateMS);
+			}
+			if(m_eventsTreeView4.GetSelectedEvent() == (*iter))
+			{
+				UpdateGraph((*iter),4,fEventSampleData,fSampleRateMS);
+			}
+		}
+
+
+		//Execute something after all events
+
+
+		//CProfilerEventManager::GetInstance().OnEventsEnd();
+	}
+	catch(string s)
+	{
+		AfxMessageBox(s.c_str());
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnSysProfilerModelAddedEvent(CSysProfilerEvent *pEvent)
+{
+	AddEvent(pEvent);
+	m_eventsTreeView1.AddEvent(pEvent);
+	m_eventsTreeView2.AddEvent(pEvent);
+	m_eventsTreeView3.AddEvent(pEvent);
+	m_eventsTreeView4.AddEvent(pEvent);
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnSysProfilerModelAddedLogLine(CString sLogLine)
+{
+	if(m_pLogDlg != NULL)
+		m_pLogDlg->AddLogLine(sLogLine);
+}
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnSysProfilerModelRemoveAllEvents()
+{
+	m_activeEventsVec.clear();
+	m_eventsTreeView1.RemoveAllEvents();
+	m_eventsTreeView2.RemoveAllEvents();
+	m_eventsTreeView3.RemoveAllEvents();
+	m_eventsTreeView4.RemoveAllEvents();
+}

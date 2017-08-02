@@ -1,0 +1,59 @@
+#include "StdAfx.h"
+#include "ProfilerEventManager.h"
+#include "PathDialog.h"
+
+CProfilerEventManager::CProfilerEventManager(void)
+{
+	m_bInitialized = FALSE;
+}
+
+CProfilerEventManager::~CProfilerEventManager(void)
+{
+}
+
+CProfilerEventManager& CProfilerEventManager::GetInstance()
+{
+    /* Allocate system object once on the heap */
+    static CProfilerEventManager *pObj = new CProfilerEventManager();
+    return *pObj; 
+}
+
+BOOL CProfilerEventManager::LoadEvents(CString sEventDBPath)
+{
+	m_sEventDBPath = sEventDBPath;//"C:\\Temp\\ProfilerEvents";
+
+	CPathDialog dlg(_T("Select Folder"), _T("Select folder to load events DB from"), m_sEventDBPath);
+
+	if (dlg.DoModal() == IDOK)
+	{				
+		CString		   sFileName, sFolderPath	= dlg.GetPathName();
+		CFileFind      xmlFileFind;
+		BOOL		   bResult;
+
+   		if(bResult = xmlFileFind.FindFile(sFolderPath + "\\*.xml"))
+		{
+			while(bResult)
+			{
+				bResult = xmlFileFind.FindNextFile();
+				sFileName = (LPCTSTR)xmlFileFind.GetFilePath();
+
+				CProfilerEvent profilerEvent;
+				if(profilerEvent.Load(sFileName) == TRUE)
+				{
+					m_events.push_back(profilerEvent);
+				}
+				else
+				{
+					MessageBox("Failed to load xml file " + sFileName + "!",NULL,MB_ICONERROR);
+				}
+			}
+		}
+		xmlFileFind.Close();
+	}
+
+
+	return TRUE;
+}
+
+int  CProfilerEventManager::GetEventCount();
+CProfilerEvent  CProfilerEventManager::GetEvent(int nIndex);

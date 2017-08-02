@@ -1,0 +1,159 @@
+<!--#include virtual="header.shtml" -->
+<link rel="stylesheet" href="/global/global.css">
+
+<CENTER><H3><FONT COLOR="#AOAO99">
+General Flicker Free Resizable Control
+</FONT></H3></CENTER><HR>
+
+This article was contributed by 
+<A HREF="mailto:TBHaagh@hotmail.com">Torben B. Haagh</A>.
+
+<p>Oh no, yet another resizable dialog class! This is what you might
+think, but I have looked at several solutions for resizable dialogs, 
+but neither of them met my requirements; so like all the others, I 
+decided to make my own class. Some of the advantages in this solution:
+
+<UL>
+<li> General solution, can be used in dialogs, form views, property sheets, etc.
+<li> Possible to split added size between several controls.
+<li> Not necessary to declare all controls with DDX_Control.
+<li> Flicker Free implementation (that also works with group boxes).
+<li> Easy setting of the sizing options though several different interfaces.
+<li> Possible to save window placement in registry. 
+<li> Small and simple implementation.
+</UL>
+
+<p> The solution is not a <TT>CDialog</TT> derived class, but a generic 
+class (<TT>CResize</TT>) that can be used in other situations as well. 
+It is applied to the dialog (<TT>CResizeDialog</TT>), property page 
+and sheet (<TT>CResizePropertyPage</TT> and <TT>CResizePropertySheet</TT>), 
+and form view (<TT>CResizeFormView</TT>) classes. The demo project shows 
+how to use the class in these four situations. Notice that the property
+sheet demo shows how to include minimize and maximize buttons.
+
+<p>Throughout the remaining part of this document, I will assume that the 
+control is applied to a dialog class.
+
+<H4>Resize Paradigm</H4>
+
+<p> The resize paradigm is to specify how much each side of a control 
+will move when the dialog is resized. If a control should be repositioned 
+(e.g. an <I>OK</I> button) then all four sides should move with the same 
+amount of pixels as the dialog is resized. If a control should be resized 
+just as much as the dialog (e.g. the list control in the file dialog), 
+then the <I>left</I> and <I>top</I> sides shouldn't move, and the 
+<I>right</I> and <I>bottom</I> sides should move with the same amount of 
+pixels as the dialog.
+
+<p>In this example the added horizontal size should be split between the 
+two edit boxes, and the added vertical size should be consumed by the two 
+edit controls. The sides of the edit controls move as shown on the image.
+
+<P><IMG SRC="dialog.jpg">
+
+<p>The sizing for the two edit controls can be set in these four different,
+but functional equal, ways:
+
+<p><PRE>
+    <FONT COLOR="#008000">// sizing set using array of items</FONT>
+    static SIZING s_arrSizing[] =
+    { <FONT COLOR="#008000">
+    //  identifier   left  top   right bottom</FONT>
+        IDC_EDIT1,   0,    0,    0.5,  1,
+        IDC_EDIT2,   0.5,  0,    1,    1
+    };
+    SetResize(s_arrSizing); 
+
+    <FONT COLOR="#008000">// sizing set directly with functions</FONT>
+    SetResize(IDC_EDIT1, 0,   0,   0.5, 1);
+    SetResize(IDC_EDIT2, 0.5, 0,   1,   1);
+
+    <FONT COLOR="#008000">// sizing set with functions using added macros</FONT>
+    SetResize(IDC_EDIT1, SZ_HORRESIZE(0.5) + SZ_VERRESIZE(1));
+    SetResize(IDC_EDIT2, SZ_HORRESIZE(0.5) + SZ_HORREPOS(0.5) + SZ_VERRESIZE(1));
+
+    <FONT COLOR="#008000">// sizing set with multiple functions using macros</FONT>
+    SetResize(IDC_EDIT1, SZ_HORRESIZE(0.5));
+    SetResize(IDC_EDIT1, SZ_VERRESIZE(1));
+    SetResize(IDC_EDIT2, SZ_HORRESIZE(0.5));
+    SetResize(IDC_EDIT2, SZ_HORREPOS(0.5));
+    SetResize(IDC_EDIT2, SZ_VERRESIZE(1));
+</PRE>
+
+The available macros for the definitions are:
+
+<p><PRE>
+    SZ_RESIZE(x)    <FONT COLOR="#008000">// resize</FONT>
+    SZ_REPOS(x)     <FONT COLOR="#008000">// reposition</FONT>
+    SZ_HORRESIZE(x) <FONT COLOR="#008000">// horizontal resize</FONT>
+    SZ_HORREPOS(x)  <FONT COLOR="#008000">// horizontal reposition</FONT>
+    SZ_VERRESIZE(x) <FONT COLOR="#008000">// vertical resize</FONT>
+    SZ_VERREPOS(x)  <FONT COLOR="#008000">// vertical reposition</FONT>
+</PRE>
+
+<p>The values of <TT>x</TT> must be in the range <I>[0,1]</I>, which is
+verified with assertions.
+
+<p>Notice that the only thing you have to do to implement a resizable dialog, 
+is to derived your own dialog class from <TT>CResizeDialog</TT> instead of 
+<TT>CDialog</TT>, and set the sizing options as shown above.
+
+<H4>Flickering</H4>
+
+<p>The windows style <TT>WS_CLIPCHILDREN</TT> needs to be set to prevent the 
+dialog from flickering. This causes a problem for group boxes (wrong window
+painting in the area of the group box), but that can be solved by making the 
+group boxes transparent (they still flicker though). The <TT>CResize</TT> 
+class automatically sets the <TT>WS_CLIPCHILDREN</TT> style for the dialog 
+and the <TT>WS_EX_TRANSPARENT</TT> extended style for the group boxes to cope 
+with these problems (this can be disabled by setting the corresponding flags, 
+see the next section).
+
+<p>Notice that the tabs of the property pages still flicker, I haven't found 
+a way to solve that (yet).
+
+<H4>Flags</H4>
+
+<p>The following flags are defined to control the behavior:
+
+<p><PRE>
+    SZ_NOSIZEICON         <FONT COLOR="#008000">// do not add size icon</FONT>
+    SZ_NOHORISONTAL       <FONT COLOR="#008000">// no horizontal resizing</FONT>
+    SZ_NOVERTICAL         <FONT COLOR="#008000">// no vertical resizing</FONT>
+    SZ_NOMINSIZE          <FONT COLOR="#008000">// do not require a minimum size</FONT>
+    SZ_NOCLIPCHILDREN     <FONT COLOR="#008000">// do not set clip children style</FONT>
+    SZ_NOTRANSPARENTGROUP <FONT COLOR="#008000">// do not set transparent style for group boxes</FONT>
+</PRE>
+
+<p>The flags are set through the last argument of the constructors.
+
+<H4>Minimum Size</H4>
+
+<p>The default minimum size is the initial size of the dialog, which can be
+overruled by the flag <TT>SZ_NOMINSIZE</TT> or by setting the size explicitly
+with the function <TT>SetMinSize</TT>. You can set a maximum size as well.
+
+<p><PRE>
+    void SetMinSize(CSize& sz); <FONT COLOR="#008000">// set the minimum size explicitly (initial size is the default)</FONT>
+    void SetMaxSize(CSize& sz); <FONT COLOR="#008000">// set the maximum (no maximum as default)</FONT>
+</PRE>
+
+<H4>Storing the last used Window Placement</H4>
+
+<p>The size of the dialog can be saved to and loaded from the registry, which 
+is shown for the demo dialog in the demo project. 
+
+<p><PRE>
+    void SavePlacement(LPCTSTR pszSection); <FONT COLOR="#008000">// save window placement to registry</FONT>
+    void LoadPlacement(LPCTSTR pszSection); <FONT COLOR="#008000">// load saved window placement from registry</FONT>
+</PRE>
+
+<h3>Downloads</h3>
+
+<A HREF="ResizeDemo.zip"> Download demo project - 39 KB</A> (including this page)<BR>
+<A HREF="resize.zip">Download source - 7 KB</A>
+
+<h3>History</h3>
+Date Posted:  July 17, 2000<BR>
+<!-- Date Last Updated:  [today's date in the format month day, year] -->
+<!--#include virtual="footer.shtml" -->

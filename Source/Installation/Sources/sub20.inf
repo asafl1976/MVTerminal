@@ -1,0 +1,131 @@
+[Version] 
+Signature = "$Windows NT$" 
+Class = USB 
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000} 
+Provider = %ProviderName% 
+DriverVer=09/20/2009,0.1.0 
+;CatalogFile=MyCatFile.cat 
+
+
+; ========== Manufacturer/Models sections =========== 
+
+
+[Manufacturer] 
+%ProviderName% = MyDevice_WinUSB,NTx86,NTamd64 
+
+
+[MyDevice_WinUSB.NTx86] 
+%USB\MyDevice.DeviceDesc% =USB_Install, USB\VID_04D8&PID_FFC3
+
+
+[MyDevice_WinUSB.NTamd64] 
+%USB\MyDevice.DeviceDesc% =USB_Install, USB\VID_04D8&PID_FFC3
+
+
+; =================== Installation =================== 
+
+
+[USB_Install] 
+Include=winusb.inf 
+Needs=WINUSB.NT 
+
+
+[USB_Install.Services] 
+Include=winusb.inf 
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall 
+
+
+[WinUSB_ServiceInstall] 
+DisplayName     = %WinUSB_SvcDesc% 
+ServiceType     = 1 
+StartType       = 3 
+ErrorControl    = 1 
+ServiceBinary   = %12%\WinUSB.sys 
+
+
+[USB_Install.Wdf] 
+KmdfService=WINUSB, WinUsb_Install 
+UmdfServiceOrder=WINUSB 
+
+
+[WinUSB_Install] 
+KmdfLibraryVersion=1.5 
+
+
+[USB_Install.HW] 
+AddReg=Dev_AddReg 
+
+
+;HKR,,DeviceInterfaceGUIDs,0x10000,"{BCCA653B-9D84-4549-A571-0EAEABD61BE8}" 
+[Dev_AddReg] 
+HKR,,DeviceInterfaceGUIDs,0x10000,"{D7F425DE-A084-4307-867D-211C488A5072}"
+
+
+
+[USB_Install.CoInstallers] 
+AddReg=CoInstallers_AddReg 
+CopyFiles=CoInstallers_CopyFiles 
+
+
+[CoInstallers_AddReg] 
+HKR,,CoInstallers32,0x00010000,"WinUSBCoInstaller.dll","WUDFUpdate_01005.dl­l","WdfCoInstaller01005.dll,WdfCoInstaller" 
+
+
+[CoInstallers_CopyFiles] 
+WinUSBCoInstaller.dll 
+WdfCoInstaller01005.dll 
+WUDFUpdate_01005.dll 
+
+
+[DestinationDirs] 
+CoInstallers_CopyFiles=11 
+
+
+; ================= Source Media Section ===================== 
+
+
+[SourceDisksNames.x86] 
+1 = %DISK_NAME%,,,\x86 
+
+
+[SourceDisksNames.amd64] 
+2 = %DISK_NAME%,,,\amd64 
+
+
+[SourceDisksFiles.x86] 
+WinUSBCoInstaller.dll=1 
+WdfCoInstaller01005.dll=1 
+WUDFUpdate_01005.dll=1 
+
+
+[SourceDisksFiles.amd64] 
+WinUSBCoInstaller.dll=2 
+WdfCoInstaller01005.dll=2 
+WUDFUpdate_01005.dll=2 
+
+
+; Copy Files section 
+;--------------------------------------------------------------------------­---- 
+[_CopyFiles_sys] 
+winusb.sys 
+
+
+;************************************************* 
+***************************** 
+; Destination Directories 
+;--------------------------------------------------------------------------­---- 
+[DestinationDirs] 
+DefaultDestDir = 12 ; %SystemRoot%\system32\drivers 
+_CopyFiles_sys = 12 
+
+
+; =================== Strings =================== 
+
+
+[Strings] 
+ProviderName="XDIMAX" 
+USB\MyDevice.DeviceDesc="SUB-20 Multi Interface USB Adapter" 
+WinUSB_SvcDesc="SUB-20 Multi Interface USB Adapter" 
+DISK_NAME="My Install Disk" 
+
+

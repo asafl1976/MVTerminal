@@ -1,0 +1,98 @@
+; Installation file (.inf) for "USB-to-I2C"
+; Copyright (c) 2007 i2ctools.com
+
+; Version Information
+; -------------------
+[Version]
+Signature="$CHICAGO$"  ; Represents all Windows OS's
+Provider=%jun%
+; For WHQL, you should obtain a catalog signed by Microsoft Hardware Compatibility Labs
+CatalogFile=wd900.cat
+DriverVer=05/19/2007, 9.0.0
+
+; Select an appropriate class for the device.
+Class=Jungo
+ClassGuid={c671678c-82c1-43f3-d700-0049433e9a4b}
+
+; Driver Information
+; ------------------
+[Manufacturer]
+; You may modify the manufacturer name by changing the Mfg variable in the [Strings]
+; section in this INF file.
+%Mfg%=DeviceList,NTamd64
+
+; x86 platform, Win9x, Windows 2000 and later
+[DeviceList]
+"USB-to-I2C"=Install, USB\VID_18E4&PID_2000
+"USB-to-I2C"=Install, USB\VID_04CC&PID_F297
+
+; x64 platform, Windows XP x64 edition and later
+[DeviceList.NTamd64]
+"USB-to-I2C"=Install, USB\VID_18E4&PID_2000
+"USB-to-I2C"=Install, USB\VID_04CC&PID_F297
+
+; Installation Section
+; --------------------
+[Install]  ; Installation script for Windows 98/Me
+CopyFiles=FilesToCopy
+AddReg=UpDateRegistry
+
+[Install.NT]  ; Installation script for Windows 2000 and later
+CopyFiles=FilesToCopy
+AddReg=UpDateRegistry
+
+[FilesToCopy]
+; To copy windrvr6.sys upon installation remove the ';' from the start of the following line
+;windrvr6.sys ,,,0x40  ; 0x40 == COPYFLG_OVERWRITE_OLDER_ONLY
+
+[ClassInstall]  ; Register a new class in Windows 98/Me
+AddReg=UpDateRegistry
+
+[ClassInstall32]  ; Register a new class in Windows 2000 and later
+AddReg=UpDateRegistry
+
+[UpDateRegistry]
+HKR,,,,Jungo
+HKR,,Icon,,-5
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,, windrvr6.sys
+
+[ControlFlags]
+ExcludeFromSelect = *  ; Remove all devices listed in this INF file from certain user 
+;    interface displays, from which a user is expected to select a particular device 
+;    for installation.
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+; Defining WinDriver6 Service
+; ---------------------------
+[Install.NT.Services]
+Addservice=WinDriver6, 0x00000002, Service_Info
+
+[Service_Info]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\windrvr6.sys
+
+; Source File Information
+; -----------------------
+[SourceDisksFiles]
+windrvr6.sys=1  ; This indicates that the windrvr6.sys file is located on
+    ; disk number 1 of "i2ctools.com Installation disks" set.
+
+[SourceDisksNames]
+1="i2ctools.com Installation Disk",,  ; This indicates that disk number 1
+    ; has the label "i2ctools.com Installation Disk". The installer will
+    ; search for windrvr6.sys in this disk.
+
+[DestinationDirs]
+DefaultDestDir=10, System32\Drivers  ; The location to which the windrvr6.sys
+
+;---------------------------------------------------------------;
+
+[Strings]
+jun="Jungo LTD."
+Mfg="i2ctools.com"
+

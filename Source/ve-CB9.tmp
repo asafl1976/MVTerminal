@@ -1,0 +1,182 @@
+#include "StdAfx.h"
+#include "ProfilerEventManager.h"
+#include "PathDialog.h"
+#include "Markup.h"
+
+CProfilerEventManager::CProfilerEventManager(void)
+{
+	m_bInitialized = FALSE;
+}
+
+CProfilerEventManager::~CProfilerEventManager(void)
+{
+	vector<CSysProfilerBasicEvent*>::iterator iter, endIter;
+
+	iter = m_events.begin();
+	endIter = m_events.end();
+
+	for(; iter != endIter; iter++)
+	{
+		delete (*iter);
+	}
+}
+
+CProfilerEventManager& CProfilerEventManager::GetInstance()
+{
+    /* Allocate system object once on the heap */
+    static CProfilerEventManager *pObj = new CProfilerEventManager();
+    return *pObj; 
+}
+
+double  CProfilerEventManager::GetTimeStamp()
+{
+	if(m_pTimeStampEvent == NULL)
+	{			
+		AfxMessageBox("m_pTimeStampEvent == NULL!",NULL,MB_ICONERROR);
+		return -1.0;
+	}
+	return m_pTimeStampEvent->GetData();
+}
+
+void  CProfilerEventManager::SetHwModuleItem(CMarvellDeviceSysProfilerHwModule *pItem)
+{
+	m_pMarvellDeviceSysProfilerHwModule = pItem;
+}
+BOOL	CProfilerEventManager::ReadMarvellDeviceRegister(UINT32 nRegAddress, UINT32 *pRegVal)
+{
+	return m_pMarvellDeviceSysProfilerHwModule->ReadRegister(nRegAddress,pRegVal);
+}
+
+BOOL	CProfilerEventManager::WriteMarvellDeviceRegister(UINT32 nRegAddress,UINT32 nVal)
+{
+	return m_pMarvellDeviceSysProfilerHwModule->WriteRegister(nRegAddress,nVal);
+}
+
+
+void CProfilerEventManager::AddEvent(CSysProfilerEvent* pEvent)
+{
+	m_events.push_back(pEvent);
+	NotifySysProfilerModelAddedEvent(pEvent);
+}
+
+void  CProfilerEventManager::OnEventsBegin()
+{
+}
+
+void CProfilerEventManager::OnEventsEnd()
+{
+}
+
+
+BOOL CProfilerEventManager::LoadConfigFile(CString sConfigFilePath)
+{
+	m_sConfigFilePath = sConfigFilePath;
+
+	if(m_sConfigFilePath.IsEmpty() == FALSE)
+	{
+		CMarkup xmlReader;
+
+		//Open and load the file
+		if(xmlReader.Load(m_sConfigFilePath) == false)
+		{
+			AfxMessageBox("Error while loading file!",NULL,MB_ICONERROR);
+			return FALSE;
+		}
+
+		if(xmlReader.FindElem("SystemProfilerConfiguration") == false)
+		{
+			AfxMessageBox("Error - time stamp xml data not found!",NULL,MB_ICONERROR);
+			return FALSE;
+		}
+		xmlReader.IntoElem();
+
+		if(xmlReader.FindElem("TimeStampEvent") == false)
+		{
+			AfxMessageBox("Error - time stamp xml data not found!",NULL,MB_ICONERROR);
+			return FALSE;
+		}
+
+		//Get the time stamp
+		m_pTimeStampEvent = new CSysProfilerTimeStampEvent();
+		if(m_pTimeStampEvent->DeSerialize(xmlReader) == FALSE)
+		{
+			AfxMessageBox("Error while loading time stamp xml data!",NULL,MB_ICONERROR);
+			return FALSE;
+		}
+
+		//Before Events tag
+		if(xmlReader.FindElem("BeforEvents") == false)
+		{
+			AfxMessageBox("Error - BeforEvents xml data not found!",NULL,MB_ICONERROR);
+			return FALSE;
+		}
+		//Load Before Events tag data
+		m_pBeforeEvents = new CSysProfilerBeforeEvents();
+		if(m_pBeforeEvents->DeSerialize(xmlReader) == FALSE)
+		{
+			AfxMessageBox("Error while loading BeforEvents xml data!",NULL,MB_ICONERROR);
+			return FALSE;
+		}
+
+
+		if(xmlReader.FindElem("SystemProfilerEvents") == false)
+			return FALSE;
+
+		xmlReader.IntoElem();
+
+		while ( xmlReader.FindElem("SystemProfilerEvent") )
+		{	
+			CSysProfilerEvent* pProfilerEvent = new CSysProfilerEvent();
+			if(pProfilerEvent->DeSerialize(xmlReader) == TRUE)
+			{
+				AddEvent(pProfilerEvent);
+			}
+			else
+			{
+				delete pProfilerEvent;
+			}
+		}
+		xmlReader.OutOfElem();
+		xmlReader.OutOfElem();
+	}
+
+	return TRUE;
+}
+
+int  CProfilerEventManager::GetEventCount()
+{
+	return m_events.size();
+}
+
+CSysProfilerBasicEvent*  CProfilerEventManager::GetEvent(int nIndex)
+{
+	return m_events[nIndex];
+}
+
+void  CProfilerEventManager::RegisterObserver(ISysProfilerObserver *pObs)
+{
+	vector<ISysProfilerObserver*>::iterator iter, endIter;
+
+	iter    = m_observers.begin();
+	endIter = m_observers.end();
+	for(; iter != endIter ; iter++)
+	{
+		if((*iter) == pObs)
+			return;
+	}
+
+	m_observers.push_back(pObs);
+}
+
+void  CProfilerEventManager::NotifySysProfilerModelAddedEvent(CSysProfilerEvent *pEvent)
+{
+	vector<ISysProfilerObserver*>::iterator iter, endIter;
+
+	iter    = m_observers.begin();
+	endIter = m_observers.end();
+	for(; iter != endIter ; iter++)
+	{
+		(*iter)->OnSysProfilerModelAddedEvent(pEvent);
+	}
+}
+

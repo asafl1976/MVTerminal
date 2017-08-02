@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MVTerminal", "MVTerminal.vcproj", "{DE8A24AB-A547-43C2-AE68-DA1F7FE41C51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{650E6203-317F-416A-A4AF-16E95C2C726D}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccProjectName0 = \u0022$/LabTools/MVTerminal/MVTerminal\u0022,\u0020QDKCAAAA
+		SccLocalPath0 = ..
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectFilePathRelativizedFromConnection0 = MVTerminal\\
+		SccProjectUniqueName1 = MVTerminal.vcproj
+		SccLocalPath1 = ..
+		SccProjectFilePathRelativizedFromConnection1 = MVTerminal\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE8A24AB-A547-43C2-AE68-DA1F7FE41C51}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DE8A24AB-A547-43C2-AE68-DA1F7FE41C51}.Debug|Win32.Build.0 = Debug|Win32
+		{DE8A24AB-A547-43C2-AE68-DA1F7FE41C51}.Release|Win32.ActiveCfg = Release|Win32
+		{DE8A24AB-A547-43C2-AE68-DA1F7FE41C51}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

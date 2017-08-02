@@ -1,0 +1,1030 @@
+#include "StdAfx.h"
+#include ".\ipmmessagemanager.h"
+#include "MVTerminalView.h"
+#include "MVTerminal.h"
+#include "VoltageCtrlHwModule.h"
+#include "FrequencyCtrlHwModule.h"
+#include "HwModuleCtrlADCUnitCurrentItem.h"
+#include "HwModuleCtrlADCUnitVoltageItem.h"
+#include "HwModuleCtrlGPIOUnitItem.h"
+#include "HwModuleModel.h"
+#include "MarvellDeviceHwModule.h"
+#include "PlatformInfoManager.h"
+#include "CUFSFileManager.h"
+
+  
+CIPMMessageManager::CIPMMessageManager()
+{
+	m_pMainframe = NULL;
+}
+
+CIPMMessageManager::~CIPMMessageManager(void)
+{
+
+}
+
+BOOL CIPMMessageManager::Init(CMainFrame *pMainframe)
+{
+	m_pMainframe = pMainframe;
+ 
+	/* Load sDLLFile */
+	if((m_hIPMDLLModule = LoadLibrary("C:\\WINDOWS\\system\\IPMMessageSender.dll")) == NULL)
+	{
+		AfxMessageBox("Failed to load system messaging module (IPMMessageSender.dll)!",NULL,MB_ICONERROR);
+		return FALSE;
+    }
+
+	if((m_IPMGetProcessWindowHandleFunc = (IPMGetProcessWindowHandleFunc)GetProcAddress(m_hIPMDLLModule,"IPMGetProcessWindowHandle")) == NULL)
+	{
+		AfxMessageBox("Failed to load IPM function!",NULL,MB_ICONERROR);
+		return FALSE;
+	}
+	if((m_IPMSendMessageFunc = (IPMSendMessageFunc)GetProcAddress(m_hIPMDLLModule,"IPMSendMessage")) == NULL)
+	{
+		AfxMessageBox("Failed to load IPM function!",NULL,MB_ICONERROR);
+		return FALSE;
+	}
+
+	const   LPCTSTR  sMemoryFileName = _T("IPMReturnData");
+
+	HANDLE hFileMapping = CreateFileMapping(INVALID_HANDLE_VALUE, // system paging file
+										NULL, // security attributes
+										PAGE_READWRITE, // protection
+										0, // high-order DWORD of size
+										sizeof(IPM_RETURN_DATA), // low-order DWORD of size
+										sMemoryFileName); // name
+										///// Creating a view of the file in the Processes address space
+	m_retDataFileView = MapViewOfFile(hFileMapping, // handle to file-mapping object
+									  FILE_MAP_ALL_ACCESS, // desired access
+									  0,0,0);
+   	return TRUE;
+}
+
+BOOL CIPMMessageManager::HandleMessage(CIPMMessage  *pMsg)
+{
+	CString	 sProcessName;
+	HWND     hWnd;
+
+	sProcessName = pMsg->GetProcessName();
+	hWnd = m_IPMGetProcessWindowHandleFunc(const_cast<char*>((LPCTSTR)sProcessName));
+
+	if(hWnd == NULL)
+	{	
+		AfxMessageBox("Requested process name " + sProcessName + " not found - Message not sent!");
+		return FALSE;
+	}
+
+	// If not for MVTerminal, forward to target process
+	if(sProcessName != "MVTerminal.exe")
+	{	
+		m_IPMSendMessageFunc(hWnd,pMsg);	
+		return TRUE;
+	}
+
+
+	CString s;
+
+	s.Format("%d",pMsg->GetMessage());
+
+    //Handle MVTerminal messages
+	switch(pMsg->GetMessage())
+	{
+	//UFS
+	case IPM_MVT_UFS_OPEN_FILE:
+		{
+			BOOL bRes = UFSOpenFile(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"UFS File Open\"!");
+			}
+			return bRes;
+		}
+	
+	case IPM_MVT_UFS_READ_LINE:
+		{
+			BOOL bRes = UFSReadLine(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"UFS Read Line\"!");
+			}
+			return bRes;
+		}
+	
+	case IPM_MVT_UFS_WRITE_LINE:
+		{
+			BOOL bRes = UFSWriteLine(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"UFS write Line\"!");
+			}
+			return bRes;
+		}
+
+	case IPM_MVT_UFS_CLOSE_FILE:
+		{
+			BOOL bRes = UFSCloseFile(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"UFS close file\"!");
+			}
+			return bRes;
+		}
+	//Platform info
+	case IPM_MVT_TRANSMIT_PLATFORM_INFO:
+		{
+			BOOL bRes = TransmitPlatformInfo(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Transmit Platform Info\"!");
+			}
+			return bRes;
+		}
+
+	case IPM_MVT_WRITE_COM_PORT_STRING:
+		{
+			BOOL bRes = WriteComPortString(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Write Com Port String\"!");
+			}
+			return bRes;
+		}
+	//Other
+	case IPM_MVT_READ_COM_PORT_STRING:
+		{
+			BOOL bRes = ReadComPortString(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Read Com Port String\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_CLEAR_COM_PORT_WINDOW:
+		{
+			BOOL bRes = ClearComPortWindow(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Clear Com Port window\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_VOL_CTRL_HWMODULE_SET_ACTIVE_CHANNEL:
+		{
+			BOOL bRes = VoltageCtrlHwModuleSetActiveChannel(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Set Voltage Ctrl Active Channel\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_VOL_CTRL_HWMODULE_GET_ACTIVE_CHANNEL:
+		{
+			BOOL bRes = VoltageCtrlHwModuleGetActiveChannel(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Get Voltage Ctrl Active Channel\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_VOL_CTRL_HWMODULE_SET_VOLTAGE:
+		{
+			BOOL bRes = VoltageCtrlHwModuleSetVoltage(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Set Voltage\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_VOL_CTRL_HWMODULE_GET_VOLTAGE:
+		{
+			BOOL bRes = VoltageCtrlHwModuleGetVoltage(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Get Voltage\"!");
+			}
+			return bRes;
+		}
+
+	case IPM_MVT_VOL_CTRL_HWMODULE_SET_FREQUENCY:
+		{
+			BOOL bRes = FrequencyCtrlHwModuleSetFrequency(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"Get Frequency\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_ADC_HWMODULE_CTRL_UNIT_GET_VOLTAGE:
+		{
+			BOOL bRes = ADCHwModuleCtrlUnitGetVoltage(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"ADC Get Voltage\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_ADC_HWMODULE_CTRL_UNIT_GET_CURRENT:
+		{
+			BOOL bRes = ADCHwModuleCtrlUnitGetCurrent(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"ADC Get Current\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_SET_RESET_LOW:
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitSetResetLow(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Set Reset Low\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_SET_RESET_HIGH:
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitSetResetHigh(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Set Reset High\"!");
+			}
+			return bRes;
+		}
+
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_RESET: 
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitReset(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Unit Reset\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_SET_POWER_ON:
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitSetPowerOn(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Set Power On\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_SET_POWER_OFF:
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitSetPowerOff(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Set Power Off\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_SET_GPIO:
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitSetGPIO(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Set IO\"!");
+			}
+			return bRes;
+		}
+	case IPM_MVT_GPIO_HWMODULE_CTRL_UNIT_GET_GPIO:
+		{
+			BOOL bRes = GPIOHwModuleCtrlUnitGetGPIO(pMsg);
+			if(bRes == FALSE)
+			{
+				AfxMessageBox("Failed to process message \"GPIO Get IO\"!");
+			}
+			return bRes;
+		}
+	default:
+		AfxMessageBox("Unknown IPM message type!");
+		break;
+	}
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::UFSOpenFile(CIPMMessage *pMsg)
+{
+	CString		     sFileName;
+	CMVTerminalView *pView;
+	UFS_OPEN_OPTION  eOption;
+
+	sFileName = pMsg->GetStringParam(0);
+	pView     = m_pMainframe->GetViewByCOM(pMsg->GetSourceComPort());
+	eOption   = (UFS_OPEN_OPTION)pMsg->GetIntParam(0);
+
+	if(pView == NULL)
+	{
+		AfxMessageBox("pView == NULL");
+	}
+
+	if((sFileName.GetLength() == 0) || (pView == NULL))
+	{
+	   	return FALSE;
+	}
+	
+	UFS_FILE_HANDLER hFile = CUFSFileManager::GetInstance().OpenFile(sFileName,eOption);
+	if(hFile == -1)
+	{
+		AfxMessageBox("Error while opening file name " + sFileName + "!");
+		return FALSE;
+	}
+	CString	 sFileHandle;
+	sFileHandle.Format("%x",hFile);
+
+	//Disable history
+	pView->SetCmdHistoryEnable(FALSE);
+
+	CTextLine  txtLine(sFileHandle,0,0,TRUE);
+	//Disable history
+	pView->SendTextLine(txtLine);
+	//Enable back history
+	pView->SetCmdHistoryEnable(TRUE);
+
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::UFSCloseFile(CIPMMessage *pMsg)
+{
+	UFS_FILE_HANDLER hFile = (UFS_FILE_HANDLER)pMsg->GetIntParam(0);
+	CUFSFileManager::GetInstance().CloseFile(hFile);
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::UFSReadLine(CIPMMessage *pMsg)
+{
+	UFS_FILE_HANDLER hFile = (UFS_FILE_HANDLER)pMsg->GetIntParam(0);
+	CMVTerminalView *pView;
+
+	pView = m_pMainframe->GetViewByCOM(pMsg->GetSourceComPort());
+	if(pView == NULL)
+	{
+		AfxMessageBox("Error in geting view");
+	   	return FALSE;
+	}
+	CString sLine, sSOL = UFS_SOL;
+	BOOL bRes = CUFSFileManager::GetInstance().ReadLine(hFile,sLine);
+
+	//Disable history
+	pView->SetCmdHistoryEnable(FALSE);
+
+	if(bRes == FALSE)
+	{
+		sLine = UFS_EOF;
+	}
+	else
+	{
+		//Send start of line
+		CTextLine  sol(sSOL,0,0,TRUE);
+		pView->SendTextLine(sol);
+	}
+
+	//Send line
+	CTextLine  rLine(sLine,0,0,TRUE);
+	pView->SendTextLine(rLine);
+
+	//Enable back history
+	pView->SetCmdHistoryEnable(TRUE);
+
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::UFSWriteLine(CIPMMessage *pMsg)
+{
+	UFS_FILE_HANDLER hFile = (UFS_FILE_HANDLER)pMsg->GetIntParam(0);
+	CString sLine = pMsg->GetStringParam(0);
+	CUFSFileManager::GetInstance().WriteLine(hFile,sLine);
+
+	return TRUE;
+}
+
+
+BOOL CIPMMessageManager::TransmitPlatformInfo(CIPMMessage *pMsg)
+{
+	CString		     sPlatformInfoName,sPlatformInfoData;
+	CMVTerminalView *pView;
+
+	pView = m_pMainframe->GetViewByCOM(pMsg->GetSourceComPort());
+	sPlatformInfoName = pMsg->GetStringParam(0);
+
+	if((sPlatformInfoName.GetLength() == 0) || (pView == NULL))
+	{	
+		AfxMessageBox("Error while processing message - Platform info name is invalid!",NULL,MB_ICONERROR);
+	   	return FALSE;
+	}
+	CString sPlatformInfoCategoriesPath = ((CMVTerminalApp*)AfxGetApp())->GetAppDataPath() + "\\PlatformInfo";
+
+	//Init 
+	CPlatformInfoManager::GetInstance().Init(sPlatformInfoCategoriesPath);
+
+	sPlatformInfoData = CPlatformInfoManager::GetInstance().GetPlaformInfoXmlRepresentation((LPCSTR)sPlatformInfoName).c_str();
+
+	if(sPlatformInfoData.GetLength() != 0)
+	{
+		//Disable history
+		pView->SetCmdHistoryEnable(FALSE);
+		CTextLine  txtLine(sPlatformInfoData,0,0,TRUE);
+		pView->SendTextLine(txtLine);
+		//Enable back history
+		pView->SetCmdHistoryEnable(TRUE);
+		return TRUE;
+	}
+	AfxMessageBox("Error while processing message - Platform info data for name = '" + sPlatformInfoName + "' is NULL (Check platform info name string)!",NULL,MB_ICONERROR);
+	return FALSE;
+}
+
+
+BOOL CIPMMessageManager::ClearComPortWindow(CIPMMessage *pMsg)
+{	
+	CString		     sComPort;
+	CMVTerminalView *pView;
+
+    sComPort.Format("%d",pMsg->GetIntParam(0));
+
+	pView = m_pMainframe->GetViewByCOM("COM" + sComPort);
+
+	if(pView == NULL)
+	{
+	   	return FALSE;
+	}
+	pView->SetWindowTextA("");
+    return TRUE;
+}
+ 
+BOOL CIPMMessageManager::WriteComPortString(CIPMMessage *pMsg)
+{	
+	CString		     sComPort,sStr;
+	CMVTerminalView *pView;
+
+    sComPort.Format("%d",pMsg->GetIntParam(0));
+	sStr = pMsg->GetStringParam(0);
+	pView = m_pMainframe->GetViewByCOM("COM" + sComPort);
+
+	if(pView == NULL)
+	{
+	   	return FALSE;
+	}
+	CTextLine  txtLine(sStr,0,0,TRUE);
+	//Disable history
+	pView->SetCmdHistoryEnable(FALSE);
+	pView->SendTextLine(txtLine);
+	//Enable back history
+	pView->SetCmdHistoryEnable(TRUE);
+    return TRUE;
+}
+ 
+BOOL CIPMMessageManager::ReadComPortString(CIPMMessage *pMsg)
+{	
+	CString		     sComPort;
+	int				 nLen;
+	IPM_RETURN_DATA  retData;
+	CMVTerminalView *pView;
+
+    sComPort.Format("%d",pMsg->GetIntParam(0));
+	nLen = pMsg->GetIntParam(1);
+	pView = m_pMainframe->GetViewByCOM("COM" + sComPort);
+	if(pView == NULL)
+	{
+   		return FALSE;
+	}
+	//Limit to max length
+	if(nLen > IPM_MAX_CHAR_RET_DATA_LEN)
+	{
+		nLen = IPM_MAX_CHAR_RET_DATA_LEN;
+	}
+	retData.bDataValid = TRUE;
+	retData.nData = pView->ReadScreenBuffer(retData.cData,nLen);
+	//Copy data to shared memory
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+	return TRUE;
+}
+ 
+BOOL CIPMMessageManager::MarvellDeviceHwModuleReadRegister(CIPMMessage *pMsg)
+{
+	IPM_RETURN_DATA        retData;
+	CMarvellDeviceHwModule*  pMarvellDevice;
+	CString                  sHwModuleCtrlName, sMarvellDeviceName;
+	int                      nHwModuleCtrlID, nRegOffset;
+	unsigned int             nRegVal;
+
+	sHwModuleCtrlName  = pMsg->GetStringParam(0);
+	nHwModuleCtrlID    = pMsg->GetIntParam(0);
+	sMarvellDeviceName = pMsg->GetStringParam(1);
+	nRegOffset         = pMsg->GetIntParam(1);
+
+	pMarvellDevice = dynamic_cast<CMarvellDeviceHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sMarvellDeviceName));
+	if(pMarvellDevice == NULL)
+	{
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pMarvellDevice) == FALSE)
+	{
+		return FALSE;
+	}
+	if(pMarvellDevice->ReadRegister(nRegOffset,&nRegVal) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pMarvellDevice) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	retData.nData = nRegVal;
+	retData.bDataValid = TRUE;
+	//Copy data to shared memory
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::MarvellDeviceHwModuleWriteRegister(CIPMMessage *pMsg)
+{
+	CMarvellDeviceHwModule*  pMarvellDevice;
+	CString                  sHwModuleCtrlName, sMarvellDeviceName;
+	int                      nHwModuleCtrlID, nRegOffset;
+	unsigned long            nRegVal;
+
+	sHwModuleCtrlName  = pMsg->GetStringParam(0);
+	nHwModuleCtrlID    = pMsg->GetIntParam(0);
+	sMarvellDeviceName = pMsg->GetStringParam(1);
+	nRegOffset         = pMsg->GetIntParam(1);
+	nRegVal            = pMsg->GetIntParam(2);
+
+	pMarvellDevice = dynamic_cast<CMarvellDeviceHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sMarvellDeviceName));
+	if(pMarvellDevice == NULL)
+	{
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pMarvellDevice) == FALSE)
+	{
+		return FALSE;
+	}
+	BOOL bRet = pMarvellDevice->WriteRegister(nRegOffset,nRegVal);
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pMarvellDevice) == FALSE)
+	{
+		return FALSE;
+	}
+	return bRet;
+}
+					     
+BOOL CIPMMessageManager::VoltageCtrlHwModuleGetActiveChannel(CIPMMessage *pMsg)
+{
+	CVoltageCtrlHwModule*  pVolCtrl;
+	IPM_RETURN_DATA        retData;
+	CString                sHwModuleCtrlName, sVoltageCtrlName;
+	int                    nHwModuleCtrlID;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sVoltageCtrlName  = pMsg->GetStringParam(1);
+
+
+	pVolCtrl = dynamic_cast<CVoltageCtrlHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sVoltageCtrlName));
+
+
+	if(pVolCtrl == NULL)
+	{	
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pVolCtrl) == FALSE)
+	{		
+		return FALSE;
+	}
+	VOLTAGE_CTRL_CHANNEL eChannel = pVolCtrl->GetActiveChannel();
+	if(eChannel == VOLTAGE_CTRL_CHANNEL_UNKNOWN)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pVolCtrl) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	retData.nData = (int)eChannel;
+	retData.bDataValid = TRUE;
+	//Copy data to shared memory
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+	return TRUE;
+} 
+
+
+
+BOOL CIPMMessageManager::VoltageCtrlHwModuleSetActiveChannel(CIPMMessage *pMsg)
+{
+	CVoltageCtrlHwModule*  pVolCtrl;
+	CString                sHwModuleCtrlName, sVoltageCtrlName;
+	int                    nHwModuleCtrlID, nChannel;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sVoltageCtrlName  = pMsg->GetStringParam(1);
+	nChannel          = pMsg->GetIntParam(1);
+
+
+	pVolCtrl = dynamic_cast<CVoltageCtrlHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sVoltageCtrlName));
+
+	if(pVolCtrl == NULL)
+	{
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pVolCtrl) == FALSE)
+	{
+		return FALSE;
+	}
+	pVolCtrl->SetActiveChannel((VOLTAGE_CTRL_CHANNEL)nChannel);
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pVolCtrl) == FALSE)
+	{
+		return FALSE;
+	}
+	return TRUE;
+} 
+
+BOOL CIPMMessageManager::VoltageCtrlHwModuleSetVoltage(CIPMMessage *pMsg)
+{
+	CVoltageCtrlHwModule*  pVolCtrl;
+	CString                sHwModuleCtrlName, sVoltageCtrlName;
+	int                    nHwModuleCtrlID, nVoltage;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sVoltageCtrlName  = pMsg->GetStringParam(1);
+	nVoltage          = pMsg->GetIntParam(1);
+
+
+	pVolCtrl = dynamic_cast<CVoltageCtrlHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sVoltageCtrlName));
+
+	if(pVolCtrl == NULL)
+	{
+		AfxMessageBox("Unable to get voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pVolCtrl) == FALSE)
+	{		
+		AfxMessageBox("Unable to select voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	BOOL bRet = pVolCtrl->SetVoltage((int)nVoltage);
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pVolCtrl) == FALSE)
+	{		
+		AfxMessageBox("Unable to de-select voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	if(bRet == FALSE)
+	{
+		AfxMessageBox("Unable set voltage for voltage controller with name '" + sVoltageCtrlName + "'");
+	}
+	return bRet;
+} 
+
+
+
+BOOL CIPMMessageManager::VoltageCtrlHwModuleGetVoltage(CIPMMessage *pMsg)
+{
+	CVoltageCtrlHwModule*  pVolCtrl;
+	IPM_RETURN_DATA        retData;
+	CString                sHwModuleCtrlName, sVoltageCtrlName;
+	int                    nHwModuleCtrlID;
+
+
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sVoltageCtrlName  = pMsg->GetStringParam(1);
+
+
+	pVolCtrl = dynamic_cast<CVoltageCtrlHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sVoltageCtrlName));
+
+	if(pVolCtrl == NULL)
+	{	
+		AfxMessageBox("Unable to get voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pVolCtrl) == FALSE)
+	{		
+		AfxMessageBox("Unable to select voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	int nVoltage;
+	if(pVolCtrl->GetVoltage(&nVoltage) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		AfxMessageBox("Unable get voltage for voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pVolCtrl) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		AfxMessageBox("Unable to de-select voltage controller with name '" + sVoltageCtrlName + "'");
+		return FALSE;
+	}
+	retData.nData = nVoltage;
+	retData.bDataValid = TRUE;
+	//Copy data to shared memory
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::FrequencyCtrlHwModuleSetFrequency(CIPMMessage *pMsg)
+{
+	CFrequencyCtrlHwModule*  pFrequencyCtrl;
+	CString                  sHwModuleCtrlName, sFrequencyCtrlName;
+	int                      nHwModuleCtrlID;
+	UINT                     nFreq,nRef,nRange;
+
+	sHwModuleCtrlName  = pMsg->GetStringParam(0);
+	nHwModuleCtrlID    = pMsg->GetIntParam(0);
+	sFrequencyCtrlName = pMsg->GetStringParam(1);
+	nFreq              = pMsg->GetIntParam(1);
+	nRef               = pMsg->GetIntParam(2);
+	nRange             = pMsg->GetIntParam(3);
+
+	pFrequencyCtrl = dynamic_cast<CFrequencyCtrlHwModule*>(CHwModuleModel::GetInstance().GetHwModule(sHwModuleCtrlName,nHwModuleCtrlID,sFrequencyCtrlName));
+	if(pFrequencyCtrl == NULL)
+	{
+		return FALSE;
+	}
+	if(CHwModuleModel::GetInstance().SelectHwModule(pFrequencyCtrl) == FALSE)
+	{
+		return FALSE;
+	}
+	BOOL bRet = pFrequencyCtrl->SetFrequancy(nFreq,nRef,nRange);
+	if(CHwModuleModel::GetInstance().DeSelectHwModule(pFrequencyCtrl) == FALSE)
+	{		
+		return FALSE;
+	}
+	return bRet;
+}
+
+BOOL CIPMMessageManager::ADCHwModuleCtrlUnitGetVoltage(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlADCUnitVoltageItem*  pVolCtrl;
+	IPM_RETURN_DATA        retData;
+	CString                sHwModuleCtrlName, sVoltageName;
+	int                    nHwModuleCtrlID;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sVoltageName  = pMsg->GetStringParam(1);
+
+	pVolCtrl = dynamic_cast<CHwModuleCtrlADCUnitVoltageItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " ADC",sVoltageName));
+	if(pVolCtrl == NULL)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	int nVoltage;
+	if(pVolCtrl->GetVoltage(&nVoltage) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	retData.nData = nVoltage;
+	retData.bDataValid = TRUE;
+	//Copy data to shared memory
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::ADCHwModuleCtrlUnitGetCurrent(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlADCUnitCurrentItem*  pCurrentCtrl;
+	IPM_RETURN_DATA				      retData;
+	CString							  sHwModuleCtrlName, sCurrentName,sResistorVal;
+	int								  nHwModuleCtrlID;
+	float							  fResistorVal;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sCurrentName  = pMsg->GetStringParam(1);
+	sResistorVal  = pMsg->GetStringParam(2);
+    sscanf_s(sResistorVal,"%f",&fResistorVal);
+
+	pCurrentCtrl = dynamic_cast<CHwModuleCtrlADCUnitCurrentItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " ADC",sCurrentName));
+	if(pCurrentCtrl == NULL)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	int nCurrent;
+	if(pCurrentCtrl->GetCurrent(fResistorVal,&nCurrent) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+
+	retData.nData = nCurrent;
+	//Copy data to shared memory
+	retData.bDataValid = TRUE;
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+	return TRUE;
+}
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitGetGPIO(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	IPM_RETURN_DATA            retData;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID, nState, nType;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+
+                  
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+	if(pGPIOItem == NULL)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	if(pGPIOItem->GetType(nType) == FALSE)
+	{		
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	if(pGPIOItem->GetState(nState) == FALSE)
+	{
+		retData.nData = -1;
+		retData.bDataValid = TRUE;
+		//Copy data to shared memory
+		memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+		return FALSE;
+	}
+	sprintf(retData.cData,"%d %d",nType,nState);
+	//Copy data to shared memory
+	retData.bDataValid = TRUE;
+	memcpy((char*)m_retDataFileView,&retData, sizeof(IPM_RETURN_DATA));
+	return TRUE;
+}
+
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitSetGPIO(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID, nState, nType;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+	nType             = pMsg->GetIntParam(1);
+	nState            = pMsg->GetIntParam(2);
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+
+	if(pGPIOItem == NULL)
+	{
+		return FALSE;
+	}
+	if(pGPIOItem->SetType(nType) == FALSE)
+	{
+		return FALSE;
+	}
+	return pGPIOItem->SetState(nState);
+}
+
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitSetResetLow(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+	if(pGPIOItem == NULL)
+	{
+		return FALSE;
+	}
+	if(pGPIOItem->SetType(GPIO_TYPE_OUTPUT) == FALSE)
+	{
+		return FALSE;
+	}
+	return pGPIOItem->SetState(GPIO_STATE_LOW);
+}
+
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitSetResetHigh(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+	if(pGPIOItem == NULL)
+	{
+		return FALSE;
+	}
+	return pGPIOItem->SetType(GPIO_TYPE_INPUT);
+}
+
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitReset(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID, nMS;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+	nMS               = pMsg->GetIntParam(1);
+
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+	if(pGPIOItem == NULL)
+	{
+		return FALSE;
+	}
+	if(pGPIOItem->SetType(GPIO_TYPE_OUTPUT) == FALSE)
+	{
+		return FALSE;
+	}
+	if(pGPIOItem->SetState(GPIO_STATE_LOW) == FALSE)
+	{
+		return FALSE;
+	}
+	Sleep(nMS);
+	return pGPIOItem->SetType(GPIO_TYPE_INPUT);
+}
+
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitSetPowerOn(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+	if(pGPIOItem == NULL)
+	{
+		return FALSE;
+	}
+	if(pGPIOItem->SetType(GPIO_TYPE_OUTPUT) == FALSE)
+	{
+		return FALSE;
+	}
+	return pGPIOItem->SetState(GPIO_STATE_LOW);
+}
+
+BOOL CIPMMessageManager::GPIOHwModuleCtrlUnitSetPowerOff(CIPMMessage *pMsg)
+{
+	CHwModuleCtrlGPIOUnitItem *pGPIOItem;
+	CString                    sHwModuleCtrlName, sGPIOName;
+	int                        nHwModuleCtrlID;
+
+	sHwModuleCtrlName = pMsg->GetStringParam(0);
+	nHwModuleCtrlID   = pMsg->GetIntParam(0);
+	sGPIOName         = pMsg->GetStringParam(1);
+
+	pGPIOItem = dynamic_cast<CHwModuleCtrlGPIOUnitItem*>(CHwModuleModel::GetInstance().GetHwModuleCtrlUnitItem(sHwModuleCtrlName,nHwModuleCtrlID,sHwModuleCtrlName + " GPIO",sGPIOName));
+	if(pGPIOItem == NULL)
+	{
+		return FALSE;
+	}
+	return pGPIOItem->SetType(GPIO_TYPE_INPUT);
+}
+
+

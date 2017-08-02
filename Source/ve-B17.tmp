@@ -1,0 +1,332 @@
+// ODPGCtrlRWRegModelessDlg.cpp : implementation file
+//
+
+#include "stdafx.h"
+#include "MVTerminal.h"
+#include "MarvellDeviceSysProfilerHwModuleModelessDlg.h"
+#include "MarvellDeviceSysProfilerHwModule.h"
+#include "ProfilerEventManager.h"
+
+UINT UpdateGraphsThread(LPVOID pParam);
+
+// CMarvellDeviceHwModuleModelessDlg dialog
+int CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos = 0;
+
+CMarvellDeviceSysProfilerHwModuleModelessDlg::CMarvellDeviceSysProfilerHwModuleModelessDlg(CWnd* pParent /*=NULL*/)
+	: CMarvellDeviceSysProfilerHwModuleBasicDlg(CMarvellDeviceSysProfilerHwModuleModelessDlg::IDD, pParent)
+{
+}
+
+CMarvellDeviceSysProfilerHwModuleModelessDlg::~CMarvellDeviceSysProfilerHwModuleModelessDlg()
+{
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CMarvellDeviceSysProfilerHwModuleBasicDlg::DoDataExchange(pDX);
+}
+
+BEGIN_MESSAGE_MAP(CMarvellDeviceSysProfilerHwModuleModelessDlg, CMarvellDeviceSysProfilerHwModuleBasicDlg)
+	ON_WM_DESTROY()
+	ON_BN_CLICKED(IDOK, OnBnClickedOk)
+	ON_BN_CLICKED(IDCANCEL, OnCancel)
+END_MESSAGE_MAP()
+
+void  CMarvellDeviceSysProfilerHwModuleModelessDlg::AlignWindow()
+{
+    CRect rectFrame, rectDlg;
+    CWnd* pMainWnd = AfxGetMainWnd();
+    if(pMainWnd != NULL)
+    {
+        pMainWnd->GetClientRect(rectFrame);
+        pMainWnd->ClientToScreen(rectFrame);
+        GetWindowRect(rectDlg);
+
+        int nXPos = rectFrame.left + (rectFrame.Width() / 2) 
+                                   - (rectDlg.Width() / 2);
+        int nYPos = rectFrame.top + (rectFrame.Height() / 3) 
+                                  - (rectDlg.Height() / 3);
+        
+		//Cascade windows
+		nXPos += CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos;
+        nYPos += CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos;
+		CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos += 20;
+		if(CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos == 220)
+			CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos = 0;
+
+	    ::SetWindowPos(m_hWnd, HWND_TOP, nXPos, nYPos, 
+          rectDlg.Width(), rectDlg.Height(), SWP_NOCOPYBITS);
+    }
+}
+
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::OnInitDialog()
+{
+	CMarvellDeviceSysProfilerHwModuleBasicDlg::OnInitDialog();
+	AlignWindow();
+
+	if(m_pMarvellDeviceSysProfilerHwModule != NULL)
+	{
+		SetWindowText(m_pMarvellDeviceSysProfilerHwModule->GetDisplayName());
+	}
+	else
+	{
+		AfxMessageBox("m_pMarvellDeviceSysProfilerHwModule = NULL");
+	}
+
+	UpdateGraphs();
+
+     // Create thread
+    m_pUpdateGraphThread = AfxBeginThread(UpdateGraphsThread, (LPVOID)this,THREAD_PRIORITY_NORMAL,0,CREATE_SUSPENDED);
+	CProfilerEventManager::GetInstance().RegisterObserver(this);
+	CProfilerEventManager::GetInstance().SetHwModuleItem(m_pMarvellDeviceSysProfilerHwModule);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnDestroy()
+{
+	//Notify owner (the TreeView control) that dlg is destroyed
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_ITEM_MODELESS_DLG_DESTROYED,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+	CMarvellDeviceSysProfilerHwModuleBasicDlg::OnDestroy();
+}
+
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnCancel()
+{
+	StopUpdateThread();
+	DestroyWindow();
+}
+
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::IsEventExists(CSysProfilerEvent* pEvent)
+{
+	vector<CSysProfilerEvent*>::iterator iter, endIter;
+
+	iter = m_activeEventsVec.begin();
+	endIter = m_activeEventsVec.end();
+
+	for(; iter != endIter; iter++)
+	{
+		if((*iter) == pEvent)
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::AddEventsVector(vector<CSysProfilerEvent*> eventVec)
+{
+	vector<CSysProfilerEvent*>::iterator iter, endIter;
+
+	iter = eventVec.begin();
+	endIter = eventVec.end();
+
+	for(; iter != endIter; iter++)
+	{
+		if(IsEventExists(*iter) == FALSE)
+		{
+			m_activeEventsVec.push_back(*iter);
+		}
+	}
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnBnClickedOk()
+{
+	m_bUpdateGraph = !m_bUpdateGraph;
+	if(m_bUpdateGraph == false)
+	{
+		m_startStopBtn.SetWindowText("Start");
+	}
+	else
+	{
+		m_startStopBtn.SetWindowText("Pause");
+
+		//Get checked events
+		m_activeEventsVec.clear();
+
+		vector<CSysProfilerEvent*> eventVec;
+		//Graph 1
+		eventVec = m_eventsTreeView1.GetCheckedEvents();
+		AddEventsVector();
+		AddEventsVector(m_eventsTreeView2.GetCheckedEvents());
+		AddEventsVector(m_eventsTreeView3.GetCheckedEvents());
+		AddEventsVector(m_eventsTreeView4.GetCheckedEvents());
+
+		StartUpdateThread();
+	}
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::PostNcDestroy()
+{
+	CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos -= 20;
+	if(CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos < 0)
+		CMarvellDeviceSysProfilerHwModuleModelessDlg::m_nWinPos = 0;
+
+	delete this;
+}
+
+// CODPGHwModuleModelessDlg message handlers
+
+void  CMarvellDeviceSysProfilerHwModuleModelessDlg::SetHwModuleItem(CHwModuleItem *pItem)
+{
+	m_pMarvellDeviceSysProfilerHwModule = dynamic_cast<CMarvellDeviceSysProfilerHwModule*>(pItem);
+}
+
+
+BOOL  CMarvellDeviceSysProfilerHwModuleModelessDlg::Create(CWnd* pParentWnd)
+{
+	return CDialog::Create(CMarvellDeviceSysProfilerHwModuleModelessDlg::IDD,pParentWnd);
+}
+
+CBasicItemDlg *CMarvellDeviceSysProfilerHwModuleModelessDlg::Clone()
+{
+	return new CMarvellDeviceSysProfilerHwModuleModelessDlg();
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::StartUpdateThread()
+{
+	if(m_pUpdateGraphThread != NULL)
+	{
+		m_pUpdateGraphThread->ResumeThread();
+	}
+}
+
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::StopUpdateThread()
+{
+	if(m_pUpdateGraphThread != NULL)
+	{
+		m_pUpdateGraphThread->SuspendThread(); 
+	}
+}
+
+UINT UpdateGraphsThread(LPVOID pParam)
+{
+	CMarvellDeviceSysProfilerHwModuleModelessDlg *phObjectHandle = static_cast<CMarvellDeviceSysProfilerHwModuleModelessDlg *>(pParam);
+
+	while(1)
+	{
+		if(phObjectHandle->UpdateUIGraphData() == FALSE)
+		{
+			return 0;
+		}
+		if(phObjectHandle->m_nSampleRate > 5)
+		{
+			Sleep(phObjectHandle->m_nSampleRate);
+		}
+		if(phObjectHandle->m_bUpdateGraph == FALSE)
+		{
+			phObjectHandle->StopUpdateThread();
+		}
+	}
+}
+
+BOOL CMarvellDeviceSysProfilerHwModuleModelessDlg::UpdateUIGraphData()
+{
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_SELECT,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+
+	//Loop all active events and get data
+	vector<CSysProfilerEvent*>::iterator iter = m_activeEventsVec.begin(), endIter = m_activeEventsVec.end();
+
+	for(; iter != endIter; iter++)
+	{
+		double eventSampleData = (*iter)->GetData();
+	}
+
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_DESELECT,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+
+
+#if 0
+	UINT32 nVal, nVal0 = 0,nVal1 = 0,nTimeLow, nTimeHigh;
+	double fTimeLow, fTimeHigh,fRes,fVal1,fVal0;
+		
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_SELECT,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+
+	//Stop counters (clear bit17)
+	if(m_pMarvellDeviceSysProfilerHwModule->ReadRegister(0xf1001590,&nVal) == FALSE)
+	{
+		AfxMessageBox("Error while reseting Counters!");
+		return FALSE;
+	}
+	nVal = nVal & 0xFFFDFFFF;
+	if(m_pMarvellDeviceSysProfilerHwModule->WriteRegister(0xf1001590,nVal) == FALSE)
+	{
+		AfxMessageBox("Error while reseting Counters!");
+		return FALSE;
+	}
+
+	//Read values
+	if(m_pMarvellDeviceSysProfilerHwModule->ReadRegister(0xf1001594    ,&nVal0) == FALSE)
+	{
+		AfxMessageBox("Error while reading counter 0!");
+		return FALSE;
+	}
+
+	if(m_pMarvellDeviceSysProfilerHwModule->ReadRegister(0xf1001594 + 8,&nVal1) == FALSE)
+	{
+		AfxMessageBox("Error while reading counter 1!");
+		return FALSE;
+	}
+	if(m_pMarvellDeviceSysProfilerHwModule->ReadRegister(0xf10015a4,&nTimeLow) == FALSE)
+	{
+		AfxMessageBox("Error while reading reg!");
+		return FALSE;
+	}
+	if(m_pMarvellDeviceSysProfilerHwModule->ReadRegister(0xf10015a8,&nTimeHigh) == FALSE)
+	{
+		AfxMessageBox("Error while reading reg!");
+		return FALSE;
+	}
+
+	//Clear counters
+	if(m_pMarvellDeviceSysProfilerHwModule->ReadRegister(0xf1001590,&nVal) == FALSE)
+	{
+		AfxMessageBox("Error while reseting Counters!");
+		return FALSE;
+	}
+	nVal = nVal | 0x30000;
+	if(m_pMarvellDeviceSysProfilerHwModule->WriteRegister(0xf1001590,nVal) == FALSE)
+	{
+		AfxMessageBox("Error while reseting Counters!");
+		return FALSE;
+	}
+	
+	fVal0 = (double)nVal0;
+	fVal1 = (double)nVal1;
+	fTimeLow = ((double)nTimeLow/(double)667000000);
+
+	if((nTimeLow * (double)16) == 0)
+	{
+		fRes = 0;
+	}
+	else
+	{
+		fRes = (fVal0*(double)32 + fVal1*(double)128)/(nTimeLow * (double)16);
+	}
+
+	fRes = fRes*100;
+
+	CString sVal;
+	sVal.Format("fRes = %f, nTimeLow = %x, fTimeLow = %f, val0 = %f, val1 = %f",fRes,nTimeLow,fTimeLow,fVal0,fVal1);
+	//AfxMessageBox(sVal);
+
+	//sVal.Format("nRes %d",nRes);
+	//AfxMessageBox(sVal);
+
+	::SendMessage(GetOwner()->m_hWnd,WM_HW_MODULE_NOTIFY_DESELECT,(WPARAM)m_pMarvellDeviceSysProfilerHwModule,NULL);
+
+	//m_PushGraph.Push((int)fRes,  DRAM_PERFORMANCE_PUSHGRAPH_LINE);
+	//m_PushGraph.Update();
+#endif
+
+	return TRUE;
+
+}
+void CMarvellDeviceSysProfilerHwModuleModelessDlg::OnSysProfilerModelAddedEvent(CSysProfilerEvent *pEvent)
+{
+	m_eventsTreeView1.AddEvent(pEvent);
+	m_eventsTreeView2.AddEvent(pEvent);
+	m_eventsTreeView3.AddEvent(pEvent);
+	m_eventsTreeView4.AddEvent(pEvent);
+}

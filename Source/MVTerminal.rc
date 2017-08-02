@@ -1,0 +1,2189 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MVTerminal.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#include ""afxolecl.rc""       // OLE container resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MVTerminal.ico"
+IDR_MVTerminalTYPE      ICON                    "res\\MVTerminalDoc.ico"
+IDI_MVT_FILE_ICON       ICON                    "res\\mvtFile.ico"
+IDI_HW_MODULE_CTRL_UNIT_ICON ICON                    "res\\HwModuleCtrlUnit.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar_normal.bmp"
+IDR_MAINFRAME_DISABLED  BITMAP                  "res\\Toolbar_disabled.bmp"
+IDB_PANES_BITMAP        BITMAP                  "res\\PaneIconsBitmap.bmp"
+IDR_MENU_ICONS          BITMAP                  "res\\menuIcons.bmp"
+IDB_MARVELL_LOGO        BITMAP                  "res\\logo.bmp"
+IDB_CLOSE               BITMAP                  "res\\CloseNotification.bmp"
+IDB_NOTIFICATION_CAPTION BITMAP                  "res\\NotificationCaption.bmp"
+IDB_NOTIFICATION_LOGO   BITMAP                  "res\\NotificationLogo.bmp"
+IDR_IOCARD_RESET_TOOLBAR BITMAP                  "res\\IOCardToolbar_normal.bmp"
+IDB_TITLE_BMP           BITMAP                  "res\\title.bmp"
+IDB_CE_CMD_BMP          BITMAP                  "res\\cmd.bmp"
+IDB_CE_CMD_STATE_BMP    BITMAP                  "res\\state.bmp"
+IDB_REMOVE_BMP          BITMAP                  "res\\remove.bmp"
+IDB_PATTERN_BMP         BITMAP                  "res\\pattern.bmp"
+IDB_HW_MODULE_CTRL_BMP  BITMAP                  "res\\hwModuleCtrl.bmp"
+IDB_MV_DEVICE_BMP       BITMAP                  "res\\mvDevice.bmp"
+IDB_CE_EXE              BITMAP                  "res\\Execute.bmp"
+IDB_MENU_COPY_BITMAP    BITMAP                  "res\\menuCopy.bmp"
+IDB_MENU_PASTE_BITMAP   BITMAP                  "res\\menuPaste.bmp"
+IDB_MENU_DUPLICATE_BITMAP BITMAP                  "res\\menuDuplicate.bmp"
+IDB_HW_MODULE_BMP2      BITMAP                  "res\\HwModul.bmp"
+IDB_HW_MODULE_MUX_CHAN_BMP1 BITMAP                  "res\\hwModulMuxChan.bmp"
+IDB_HW_MODULE_CTRL_UNIT_BMP2 BITMAP                  "res\\hwModulCtrlUnit.bmp"
+IDB_OPEN_FILE           BITMAP                  "res\\openFile.bmp"
+IDB_PROPERTIES_BMP      BITMAP                  "res\\prop.bmp"
+IDB_REFRESH_HW_MODDULE_TREE BITMAP                  "res\\refreshHwModuleTree.bmp"
+IDB_RESET_HW_MODDULE_TREE BITMAP                  "res\\resetHwModuleTree.bmp"
+IDB_SAVE_FILE           BITMAP                  "C:\\Projects\\VC++ Projects\\MVTerminal\\res\\saveFile.BMP"
+IDB_HW_MODULE_ADC_VOL_BMP BITMAP                  "res\\hwModulADCVolatge.bmp"
+IDB_HW_MODULE_ADC_CUR_BMP BITMAP                  "res\\hwModulADCCurrent.bmp"
+IDB_IO_INPUT            BITMAP                  "res\\Input.bmp"
+IDB_IO_OUTPUT           BITMAP                  "res\\Output.bmp"
+IDB_IO_UNKNOWN          BITMAP                  "res\\Unknown.bmp"
+IDB_IO_ERROR            BITMAP                  "res\\Error.bmp"
+IDR_POWER_CTRL_TOOLBAR  BITMAP                  "res\\PowerCtrl_toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR  24, 24
+BEGIN
+    BUTTON      ID_FILE_NEW
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_EDIT_FIND
+    SEPARATOR
+    BUTTON      ID_VIEW_WIN_CONTENT
+    BUTTON      ID_PORT_CONNECT
+    BUTTON      ID_PORT_DISCONNECT
+    BUTTON      ID_PORT_PROPERTIES
+    SEPARATOR
+    BUTTON      ID_APP_SETTINGS
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_MAINFRAME_DISABLED TOOLBAR  24, 24
+BEGIN
+    BUTTON      ID_FILE_NEW
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_EDIT_FIND
+    SEPARATOR
+    BUTTON      ID_VIEW_WIN_CONTENT
+    BUTTON      ID_PORT_CONNECT
+    BUTTON      ID_PORT_DISCONNECT
+    BUTTON      ID_PORT_PROPERTIES
+    SEPARATOR
+    BUTTON      ID_APP_SETTINGS
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_MENU_ICONS TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_EDIT_FIND
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_IOCARD_RESET_TOOLBAR TOOLBAR  24, 24
+BEGIN
+    BUTTON      ID_IOCARD_BOARD_RESET
+END
+
+IDR_POWER_CTRL_TOOLBAR TOOLBAR  24, 24
+BEGIN
+    BUTTON      ID_POWER_CTRL_POWER
+    BUTTON      ID_POWER_CTRL_RESET
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About MVTerminal...",        ID_APP_ABOUT
+        MENUITEM "Check for updates...",        ID_HELP_CHECKFORUPDATES
+    END
+END
+
+IDR_MVTerminalTYPE MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "Save Scripts...",             ID_FILE_EXPORTSCRIPTS
+        MENUITEM "Load Scripts...",             ID_FILE_IMPORTSCRIPTS
+        MENUITEM SEPARATOR
+        MENUITEM "Load &TFTP File",             ID_LOAD_TFTP_FILE
+        MENUITEM "Load Te&xt File...",          ID_FILE_SENDTEXTFILE
+        MENUITEM SEPARATOR
+        MENUITEM "&Load Configuration...",      ID_FILE_LOADCONFIGURATION
+        MENUITEM "&Save Configuration...",      ID_FILE_SAVECONFIGURATION
+        MENUITEM SEPARATOR
+        MENUITEM "&Restore Last Configuration", ID_FILE_RESTORELASTCONFIGURATION
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "Select A&ll\tCtrl+A",         ID_EDIT_SELECT_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "&Find...\tCtrl+F",            ID_EDIT_FIND
+        MENUITEM "F&ind Next\tF3",              ID_EDIT_REPEAT
+        MENUITEM SEPARATOR
+        MENUITEM "Preferences...",              ID_APP_SETTINGS
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "New Font...",                 ID_NEW_FONT
+        MENUITEM SEPARATOR
+        MENUITEM "Clear Buffer",                ID_VIEW_CLEARBUFFER
+        MENUITEM "Capture To File",             ID_VIEW_CAPTURETOFILE
+        MENUITEM SEPARATOR
+        MENUITEM "Wrap Text",                   ID_VIEW_WRAPTEXT
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About MVTerminal...",        ID_APP_ABOUT
+        MENUITEM "Check For Updates...",        ID_HELP_CHECKFORUPDATES
+    END
+END
+
+IDR_MVTerminalTYPE_CNTR_IP MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    MENUITEM SEPARATOR
+    MENUITEM SEPARATOR
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+    END
+END
+
+IDR_POPUP_TABS MENU 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "New Font...",                 ID_NEW_FONT
+        MENUITEM SEPARATOR
+        MENUITEM "Clear Buffer",                ID_VIEW_CLEARBUFFER
+        MENUITEM "Capture To File",             ID_VIEW_CAPTURETOFILE
+        MENUITEM "Wrap Text",                   ID_VIEW_WRAPTEXT
+        MENUITEM SEPARATOR
+        MENUITEM "Properties",                  ID_PORT_PROPERTIES
+        MENUITEM SEPARATOR
+        MENUITEM "Close",                       ID_FILE_CLOSE
+    END
+END
+
+IDR_HISTORY_MENU MENU 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+    END
+END
+
+IDR_CMDE_FILE_CMD_MENU MENU 
+BEGIN
+    POPUP ""
+    BEGIN
+        POPUP "Save Commands"
+        BEGIN
+            MENUITEM "Selected Commands",           ID_SAVECOMMANDS_SELECTEDCOMMANDS
+            MENUITEM "All Commands",                ID_SAVECOMMANDS_ALLCOMMANDS
+        END
+        POPUP "Load Commands "
+        BEGIN
+            MENUITEM "Individual Commands",         ID_LOADCOMMANDS_INDIVIDUALCOMMAND
+            MENUITEM "All Commands",                ID_LOADCOMMANDS_ALLCOMMANDS
+        END
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    VK_ESCAPE,      ID_CANCEL_EDIT_CNTR,    VIRTKEY, NOINVERT
+    "W",            ID_CMD_EXECUTER_EXE,    VIRTKEY, CONTROL, NOINVERT
+    "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
+    "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
+    "E",            ID_FILE_EXPORTSCRIPTS,  VIRTKEY, CONTROL, NOINVERT
+    "I",            ID_FILE_IMPORTSCRIPTS,  VIRTKEY, CONTROL, NOINVERT
+    "L",            ID_FILE_LOADCONFIGURATION, VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVECONFIGURATION, VIRTKEY, CONTROL, NOINVERT
+    "X",            ID_FILE_SENDTEXTFILE,   VIRTKEY, CONTROL, NOINVERT
+    "R",            ID_FILE_RESTORELASTCONFIGURATION, VIRTKEY, CONTROL, NOINVERT
+    "T",            ID_LOAD_TFTP_FILE,      VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_RETURN,      ID_OLE_EDIT_PROPERTIES, VIRTKEY, ALT, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+IDR_MVTerminalTYPE_CNTR_IP ACCELERATORS 
+BEGIN
+    VK_ESCAPE,      ID_CANCEL_EDIT_CNTR,    VIRTKEY, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    "E",            ID_FILE_EXPORTSCRIPTS,  VIRTKEY, CONTROL, NOINVERT
+    "I",            ID_FILE_IMPORTSCRIPTS,  VIRTKEY, CONTROL, NOINVERT
+    "L",            ID_FILE_SENDTEXTFILE,   VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 301, 84
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About MVTerminal"
+FONT 8, "Tahoma", 400, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,11,20,20
+    LTEXT           "",IDC_VERSION_STR,40,13,171,8,SS_NOPREFIX
+    LTEXT           "Copyright © 2012 Marvell Semiconductor, Inc.",IDC_STATIC,40,25,151,8
+    DEFPUSHBUTTON   "OK",IDOK,235,61,59,16,WS_GROUP
+    LTEXT           "asafl@marvell.com",IDC_STATIC,40,37,69,8
+    CONTROL         150,IDP_MARVELL_LOGO,"Static",SS_BITMAP | SS_CENTERIMAGE,218,7,76,40,WS_EX_ACCEPTFILES | WS_EX_STATICEDGE
+END
+
+IDD_CONNECTION_SETTINGS_DLG DIALOGEX 0, 0, 205, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_COM_PORT_COMBO,74,20,108,135,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_BAUD_RATE_COMBO,74,42,108,129,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_WND_NAME_COMBO,74,130,108,45,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Settings:",IDC_STATIC,7,7,191,145
+    LTEXT           "COM Port:",IDC_STATIC,37,23,33,8
+    LTEXT           "Baud Rate:",IDC_STATIC,34,44,36,8
+    LTEXT           "Name (Optional):",IDC_STATIC,15,132,55,8
+    COMBOBOX        IDC_DATA_BITS_COMBO,74,64,108,69,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Data Bits:",IDC_STATIC,39,67,31,8
+    COMBOBOX        IDC_PARITY_COMBO,74,86,108,67,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Parity:",IDC_STATIC,49,88,21,8
+    COMBOBOX        IDC_STOP_BITS_COMBO,74,108,108,69,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Stop Bits:",IDC_STATIC,39,111,31,8
+    PUSHBUTTON      "Restore Defaults",IDC_RESTORE_DEFAULT_BTN,133,157,65,14
+END
+
+IDD_TFTP_SERVER_PANE DIALOGEX 0, 0, 701, 107
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+EXSTYLE WS_EX_ACCEPTFILES
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Files List:",IDC_STATIC,6,3,385,97
+    LISTBOX         IDC_TFTP_FILE_LIST,13,14,325,80,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,WS_EX_ACCEPTFILES
+    PUSHBUTTON      "Add",IDC_ADD_TFTP_FILE_BTN,343,15,42,17
+    PUSHBUTTON      "Remove",IDC_REMOVE_TFTP_FILE_BTN,343,35,42,17
+    DEFPUSHBUTTON   "Load",IDC_LOAD_TFTP_FILE_BTN,343,75,42,17
+    EDITTEXT        IDC_TFTP_LOAD_ADDRESS,397,55,52,12,ES_LOWERCASE
+    LTEXT           "Load Address:",IDC_STATIC,397,46,47,8
+    EDITTEXT        IDC_PROGRAM_ARGS,458,55,229,12,ES_AUTOHSCROLL
+    LTEXT           "Program Arguments:",IDC_STATIC,458,46,94,8
+    CONTROL         "Load && Go",IDC_LOAD_N_GO,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,396,15,49,10
+    CONTROL         "Burn To File-System",IDC_BURN_TO_FS,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,507,15,79,10
+    CONTROL         "As Is",IDC_AS_IS,"Button",BS_AUTORADIOBUTTON,595,15,32,10
+    CONTROL         "Executable",IDC_EXECUTABLE,"Button",BS_AUTORADIOBUTTON,629,15,51,10
+    LTEXT           "Status:",IDC_STATIC,396,76,24,8
+    LTEXT           "TFTP Server not connected",IDC_TFTP_CONNECTION_STATUS,423,76,206,8
+    GROUPBOX        "Settings:",IDC_STATIC,390,3,305,97
+    PUSHBUTTON      "Connect",IDC_TFTP_CONNECT_BTN,636,78,52,16
+    CONTROL         "",IDC_TFTP_LOAD_PROGRESS,"msctls_progress32",PBS_SMOOTH | WS_BORDER,396,86,230,8
+    PUSHBUTTON      "Remove All",IDC_REMOVE_ALL_TFTP_FILE_BTN2,343,55,42,17
+    CONTROL         "Auto Detect Load Address ",IDC_AUTO_DETECT_LOAD_ADDR,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,396,29,102,10
+    PUSHBUTTON      "Go",IDC_TFTP_FILE_GO_BTN,446,14,32,11
+    CONTROL         "Force Cacheable Load Address",IDC_FORCE_CACHEABLE_LOAD_ADDR,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,507,29,115,10
+END
+
+IDD_SEND_SCRIPT_PANE DIALOGEX 0, 0, 666, 107
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LISTBOX         IDC_SCRIPT_LIST,14,14,244,80,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Script List:",IDC_STATIC,7,3,302,98
+    PUSHBUTTON      "New",IDC_NEW_SCRIPT_BTN,262,15,42,17
+    PUSHBUTTON      "Remove",IDC_REMOVE_SCRIPT_BTN,262,55,42,17
+    PUSHBUTTON      "Load",IDC_LOAD_SCRIPT_BTN,262,75,42,17
+    GROUPBOX        "Script Editor:",IDC_STATIC,308,3,255,98
+    EDITTEXT        IDC_SCRIPT_NAME_EDIT,568,81,72,14,ES_AUTOHSCROLL
+    LTEXT           "Line Delay:",IDC_STATIC,568,46,36,8
+    EDITTEXT        IDC_LINE_DELAY_EDIT,568,55,72,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Script Name:",IDC_STATIC,568,72,42,8
+    PUSHBUTTON      "Browse",IDC_BROWSE_BTN,262,35,42,17
+    LTEXT           "ms",IDC_STATIC,643,58,10,8
+    CONTROL         "",IDC_SCRIPT_VIEW,"RichEdit20A",ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_BORDER | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,313,14,244,80
+    GROUPBOX        "Script Settings:",IDC_STATIC,562,3,97,98
+END
+
+IDD_VIEW_PROPERTIES DIALOGEX 0, 0, 225, 228
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Session Properties"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,111,207,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,168,207,50,14
+    CONTROL         "",IDC_VIEW_TAB,"SysTabControl32",0x0,7,7,211,195
+END
+
+IDD_MONITOR_PARAMS_SETTINGS_DLG DIALOGEX 0, 0, 206, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_LOAD_COMMAND_EDIT,91,22,64,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_BURN_AS_IS_COMMAND_EDIT,91,44,64,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_BURN_EXE_COMMAND_EDIT,91,66,64,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_RUN_COMMAND_EDIT,91,107,64,13,ES_AUTOHSCROLL
+    GROUPBOX        "TFTP Commands",IDC_STATIC,7,7,191,83
+    LTEXT           "Load Command:",IDC_STATIC,35,24,52,8
+    LTEXT           "Burn As Is Command:",IDC_STATIC,17,46,70,8
+    LTEXT           "Burn Exe Command:",IDC_STATIC,21,68,66,8
+    LTEXT           "Run Command:",IDC_STATIC,37,109,50,8
+    EDITTEXT        IDC_LOAD_ADDRESS,91,129,64,13,ES_AUTOHSCROLL
+    LTEXT           "Default Load Address:",IDC_STATIC,14,131,72,8
+    GROUPBOX        "General",IDC_STATIC,7,93,191,59
+    PUSHBUTTON      "Restore Defaults",IDC_RESTORE_DEFAULT_BTN,133,157,65,14
+END
+
+IDD_APP_SETTINGS_DLG DIALOGEX 0, 0, 264, 266
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Preferences"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,150,244,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,207,244,50,14
+    CONTROL         "",IDC_APP_SETTINGS_TAB,"SysTabControl32",0x0,7,7,249,231
+END
+
+IDD_APP_SCRIPT_SETTINGS_DLG DIALOGEX 0, 0, 244, 214
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Scripts",IDC_STATIC,7,6,229,200
+    CONTROL         "On startup, load scripts from:",IDC_LOAD_DEFAULT_SCRIPTS_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,16,21,111,10
+    EDITTEXT        IDC_DEFAULT_SCRIPTS_PATH_EDIT,16,38,213,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Change",IDC_BROWSE_BTN,185,57,44,15
+END
+
+IDD_DATA_ANALYZER_PANE DIALOGEX 0, 0, 603, 105
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_BIT1,541,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT2,526,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT3,511,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT4,487,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT5,472,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT6,458,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT7,444,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT8,420,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT9,405,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT10,390,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT11,375,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT12,352,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT13,337,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT14,322,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT15,307,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT16,284,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT17,269,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT18,254,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT19,239,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT20,216,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT21,201,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT22,186,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT23,171,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    GROUPBOX        "",IDC_STATIC,505,6,69,40
+    GROUPBOX        "",IDC_STATIC,437,6,69,40
+    GROUPBOX        "",IDC_STATIC,369,6,69,40
+    GROUPBOX        "",IDC_STATIC,301,6,69,40
+    GROUPBOX        "",IDC_STATIC,233,6,69,40
+    GROUPBOX        "",IDC_STATIC,165,6,69,40
+    GROUPBOX        "",IDC_STATIC,97,6,69,40
+    GROUPBOX        "",IDC_STATIC,29,6,69,40
+    EDITTEXT        IDC_BIT24,148,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT25,133,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT26,118,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT27,103,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT28,81,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT29,66,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT30,51,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_BIT31,36,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    EDITTEXT        IDC_DATA_EDIT,275,59,53,13,ES_UPPERCASE | ES_AUTOHSCROLL
+    CTEXT           "0",IDC_STATIC,558,15,8,8
+    CTEXT           "1",IDC_STATIC,543,15,8,8
+    CTEXT           "2",IDC_STATIC,528,15,8,8
+    CTEXT           "3",IDC_STATIC,514,15,8,8
+    CTEXT           "4",IDC_STATIC,489,15,8,8
+    CTEXT           "5",IDC_STATIC,474,15,8,8
+    CTEXT           "6",IDC_STATIC,459,15,8,8
+    CTEXT           "7",IDC_STATIC,445,15,8,8
+    CTEXT           "8",IDC_STATIC,422,15,8,8
+    CTEXT           "9",IDC_STATIC,407,15,8,8
+    CTEXT           "10",IDC_STATIC,392,15,8,8
+    CTEXT           "11",IDC_STATIC,377,15,8,8
+    CTEXT           "12",IDC_STATIC,354,15,8,8
+    CTEXT           "13",IDC_STATIC,339,15,8,8
+    CTEXT           "14",IDC_STATIC,324,15,8,8
+    CTEXT           "15",IDC_STATIC,309,15,8,8
+    CTEXT           "16",IDC_STATIC,285,15,8,8
+    CTEXT           "17",IDC_STATIC,271,15,8,8
+    CTEXT           "18",IDC_STATIC,255,15,8,8
+    CTEXT           "19",IDC_STATIC,240,15,8,8
+    CTEXT           "20",IDC_STATIC,217,15,8,8
+    CTEXT           "21",IDC_STATIC,203,15,8,8
+    CTEXT           "22",IDC_STATIC,188,15,8,8
+    CTEXT           "23",IDC_STATIC,173,15,8,8
+    CTEXT           "24",IDC_STATIC,149,15,8,8
+    CTEXT           "25",IDC_STATIC,133,15,8,8
+    CTEXT           "26",IDC_STATIC,120,15,8,8
+    CTEXT           "27",IDC_STATIC,105,15,8,8
+    CTEXT           "28",IDC_STATIC,82,15,8,8
+    CTEXT           "29",IDC_STATIC,68,15,8,8
+    CTEXT           "30",IDC_STATIC,54,15,8,8
+    CTEXT           "31",IDC_STATIC,38,15,8,8
+    LTEXT           "MSB              LSB",IDC_MSB_LSB_STATIC,276,51,58,8
+    CONTROL         "Dec",IDC_DEC_RADIO,"Button",BS_AUTORADIOBUTTON,224,61,29,10
+    CONTROL         "Hex",IDC_HEX_RADIO,"Button",BS_AUTORADIOBUTTON,186,61,29,10
+    EDITTEXT        IDC_SHIFT_EDIT,293,76,17,14,ES_CENTER | ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "Shift >>",IDC_SHIFT_RIGHT_BTN,317,76,41,14
+    PUSHBUTTON      "<< Shift",IDC_SHIFT_LEFT_BTN,245,76,41,14
+    PUSHBUTTON      "Clear",IDC_CLEAR_BTN,527,71,47,17
+    DEFPUSHBUTTON   "Swap",IDC_SWAP_BTN,419,71,47,17
+    PUSHBUTTON      "Not",IDC_NOT_BTN,473,71,47,17
+    EDITTEXT        IDC_BIT0,556,24,12,13,ES_CENTER | ES_AUTOHSCROLL | NOT WS_TABSTOP
+    CONTROL         "Analyze On Selection",IDC_ANALYZE_ON_SELECTION_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,29,56,83,10
+    LTEXT           "",IDC_MB_VALUE,334,61,97,8
+END
+
+IDD_APP_APPEARANCE_SETTINGS_DLG DIALOGEX 0, 0, 244, 214
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Select Theme:",IDC_STATIC,7,6,229,200
+    LISTBOX         IDC_THEME_LIST,15,18,213,62,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_CMD_HISTORY_SETTINGS_DLG DIALOGEX 0, 0, 205, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Up/Down Arrows key settings:",IDC_STATIC,7,7,191,48
+    CONTROL         "Send Key Codes As Is",IDC_SEND_KEY_CODES_AS_IS,"Button",BS_AUTORADIOBUTTON,13,21,86,10
+    CONTROL         "Act As History",IDC_ACT_AS_HISTORY,"Button",BS_AUTORADIOBUTTON,13,38,61,8
+    EDITTEXT        IDC_CMD_MAX_LEN_EDIT,104,147,25,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Queue Depth:",IDC_STATIC,40,148,46,8
+    PUSHBUTTON      "Empty Queue",IDC_CLEAR_HISTORY_BTN,133,147,50,14
+    EDITTEXT        IDC_CMD_FILTER_EDIT,14,88,177,13,ES_AUTOHSCROLL
+    GROUPBOX        "Filter:",IDC_STATIC,7,56,191,66
+    LTEXT           "Set list of strings that will not be included in history list (e.g. run;clear;scan)",IDC_STATIC,15,68,163,19
+    EDITTEXT        IDC_CMD_MIN_LEN_THRS_EDIT,104,128,26,13,ES_AUTOHSCROLL
+    LTEXT           "Log commands length:",IDC_STATIC,14,130,72,8
+    CONTROL         "Remove Duplicated strings from history menu",IDC_REM_DUP_STRINGS_MENU_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,106,161,10
+    LTEXT           "Max",IDC_STATIC,141,130,14,8
+    LTEXT           "Min",IDC_STATIC,91,130,12,8
+    EDITTEXT        IDC_CMD_MAX_LEN_THRS_EDIT,155,128,26,13,ES_AUTOHSCROLL
+END
+
+IDD_APP_TFTP_SERVER_SETTINGS_DLG DIALOGEX 0, 0, 244, 214
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "TFTP Settings:",IDC_STATIC,7,6,229,200
+    CONTROL         "Connect automatically on application startup",IDC_CON_AUTO_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,15,21,158,10
+    CONTROL         "Warn me about TFTP server load failure",IDC_TFTP_FAIL_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,15,38,143,10
+END
+
+IDD_SEND_EMAIL DIALOGEX 0, 0, 205, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Send E-Mail:",IDC_STATIC,7,7,191,146
+    CONTROL         "Send E-Mail with screen capture:",IDC_SEND_MAIL_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,13,19,121,10
+    COMBOBOX        IDC_MAIL_DURATION_COMBO,53,75,134,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "To:",IDC_STATIC,39,37,11,11
+    EDITTEXT        IDC_MAIL_RECIPIENT,53,35,133,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "Subject:",IDC_STATIC,23,56,27,11
+    EDITTEXT        IDC_MAIL_SUBJECT,53,55,133,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "Every:",IDC_STATIC,28,76,21,11
+    LTEXT           "Include following text in message body:",IDC_STATIC,25,94,128,8
+    EDITTEXT        IDC_MAIL_MSG,24,103,163,43,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL
+    PUSHBUTTON      "Mail Settings",IDC_MAIL_SETTINGS,148,156,50,15
+    PUSHBUTTON      "Send",IDC_SEND_MAIL,7,157,50,14
+END
+
+IDD_MAIL_SETTINGS DIALOGEX 0, 0, 192, 132
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Mail Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,80,111,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,135,111,50,14
+    EDITTEXT        IDC_SENDER,47,22,125,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAILSERVER,47,46,125,14,ES_AUTOHSCROLL
+    LTEXT           "Sender:",IDC_STATIC,17,25,25,8
+    LTEXT           "Mode:",IDC_STATIC,22,72,20,8
+    LTEXT           "Server:",IDC_STATIC,18,48,24,8
+    COMBOBOX        IDC_MODE,47,70,125,69,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Mail Settings:",IDC_STATIC,7,7,178,97
+END
+
+IDD_VIEW_MESSAGING DIALOGEX 0, 0, 205, 176
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Messaging",IDC_STATIC,7,7,191,140
+    CONTROL         "Enable serial port messages",IDC_EN_MESSAGING_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,14,19,105,10
+    CONTROL         "Append new line to sent message body",IDC_APPEND_NEWLINE_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,25,34,141,10
+    LTEXT           "Message Format:\n---------------------\nESC[MVT,ProcessName,MsgType,LParam,WParam]",IDC_STATIC,14,57,167,31
+    LTEXT           "ESC[MVT = MVT message prefix (ESC is the escape ASCII char)\nProcessName = Target Process file i.e. MVTerminal.exe\nMsgType = Message Type i.e. MVT_SEND_STRING\nLParam\\WParam = Message parameters",IDC_STATIC,14,89,164,54
+END
+
+IDD_IP_ADDRESS_LIST_DLG DIALOGEX 0, 0, 171, 114
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select TFTP Server IP Address"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,108,87,50,14
+    LISTBOX         IDC_IP_ADDRESS_LIST,14,19,143,62,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Select TFTP Server IP Address",IDC_STATIC,7,7,157,100
+END
+
+IDD_HW_MODULES_SETTINGS_DLG DIALOGEX 0, 0, 222, 167
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Default IO Card Settings:",IDC_STATIC,7,46,208,75
+    EDITTEXT        IDC_HW_MODULES_I2C_ADDR_EDIT,93,79,93,12,ES_AUTOHSCROLL
+    LTEXT           "I2C Address:",IDC_STATIC,50,80,42,8
+    EDITTEXT        IDC_HW_MODULES_RESET_IO_EDIT,93,98,93,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Reset IO#:",IDC_STATIC,55,99,37,8
+    LTEXT           "Hex",IDC_STATIC,189,81,12,8
+    COMBOBOX        IDC_HW_MODULE_CTRL_COMBO,93,59,93,90,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Hardware Module Type:",IDC_STATIC,15,61,77,8
+    GROUPBOX        "General",IDC_STATIC,7,3,208,40
+    CONTROL         "Detect hardware modules on startup",IDC_HW_MODULES_DET_HW_MODULES_ON_STARTUP_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,16,20,133,10
+END
+
+IDD_CE_CHECK_RESULT_DLG DIALOGEX 0, 0, 255, 130
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Check Result"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,141,109,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,198,109,50,14
+    GROUPBOX        "Check Result:",IDC_STATIC,7,3,241,98
+    CONTROL         "Find String",IDC_CE_COMPARE_STR_RADIO,"Button",BS_AUTORADIOBUTTON,14,40,50,10
+    CONTROL         "Compare With Text File",IDC_COMPARE_TEXT_FILE_RADIO,
+                    "Button",BS_AUTORADIOBUTTON,14,56,91,10
+    EDITTEXT        IDC_CE_CHECK_RES_EDIT,15,80,210,13,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_CE_CHECK_RESULT_BROWSE_BTN,227,80,16,13
+    CONTROL         "Fail if string is found",IDC_CE_CHECK_RES_FAIL_IF_FOUND_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,88,40,80,10
+    LTEXT           "String:",IDC_CE_CHECK_RESULT_TEXT,16,71,39,8
+    COMBOBOX        IDC_TARGET_WIN_COMBO,53,17,111,95,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM Port:",IDC_STATIC,16,19,34,8
+END
+
+IDD_CMD_EXE_CMD_SETTINGS_DLG DIALOGEX 0, 0, 557, 377
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Command Settings:"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,443,356,50,14
+    PUSHBUTTON      "Cancel",IDC_CMDE_CANCEL_BTN,500,356,50,14
+    LTEXT           "Loop Count:",IDC_STATIC,15,40,39,8
+    EDITTEXT        IDC_CMDE_CMD_LOOPCOUNT_EDIT,56,38,81,13,ES_AUTOHSCROLL
+    CONTROL         "Stop Command Execution On Error",IDC_CMDE_CMD_STOP_ON_ERR_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,153,29,127,10
+    GROUPBOX        "Command Settings:",IDC_STATIC,7,3,543,345
+    CONTROL         "",IDC_CMDE_CMD_LOOPCOUNT_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_ARROWKEYS,125,38,11,12
+    EDITTEXT        IDC_CMDE_CMD_NAME_EDIT,56,16,81,13,ES_AUTOHSCROLL
+    LTEXT           "Name:",IDC_STATIC,33,18,19,8
+    LTEXT           "Command items List:",IDC_STATIC,12,60,189,8
+    LTEXT           "Command Window:",IDC_STATIC,194,60,62,8
+    CONTROL         "",IDC_SRC_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,12,71,178,272
+    CONTROL         "",IDC_CMD_EXE_CMD_SETTING_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | WS_BORDER | WS_HSCROLL | WS_TABSTOP,194,71,351,272
+    CONTROL         "Enable",IDC_CE_CMD_EN_CHECK,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,153,16,37,10
+END
+
+IDD_CE_SET_DELAY_DLG DIALOGEX 0, 0, 216, 100
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set Delay"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,103,79,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,159,79,50,14
+    GROUPBOX        "Set Delay:",IDC_STATIC,7,7,202,65
+    CONTROL         "Fixed Value:",IDC_CE_SET_DELAY_FIXED_RADIO,"Button",BS_AUTORADIOBUTTON,13,21,55,10
+    CONTROL         "Random Value:",IDC_CE_SET_DELAY_RAND_RADIO,"Button",BS_AUTORADIOBUTTON,13,48,59,10
+    EDITTEXT        IDC_CE_SET_DELAY_FIXED_EDIT,74,19,115,13,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_CE_SET_DELAY_RAND_LOW_EDIT,74,46,38,13,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_CE_SET_DELAY_RAND_HIGH_EDIT,150,46,39,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "ms",IDC_STATIC,193,21,9,8
+    LTEXT           "ms",IDC_STATIC,191,48,9,8
+    LTEXT           "Up To",IDC_STATIC,121,48,19,8
+END
+
+IDD_CE_WAIT_FOR_STR_DLG DIALOGEX 0, 0, 197, 119
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Wait for string"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,86,98,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,140,98,50,14
+    GROUPBOX        "Wait For String:",IDC_STATIC,7,7,183,85
+    EDITTEXT        IDC_CE_WAIT_FOR_STR_EDIT,50,41,132,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CE_WAIT_FOR_STR_TIMEOUT_EDIT,50,64,66,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Timeout:",IDC_STATIC,20,65,29,8
+    LTEXT           "ms",IDC_STATIC,119,66,10,8
+    COMBOBOX        IDC_TARGET_WIN_COMBO,50,19,132,72,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM Port:",IDC_STATIC,15,21,34,8
+    LTEXT           "String:",IDC_STATIC,26,43,22,8
+END
+
+IDD_CE_EXE_CMD_DLG DIALOGEX 0, 0, 211, 100
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Execute Command"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,99,79,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,154,79,50,14
+    GROUPBOX        "Command:",IDC_STATIC,7,7,197,66
+    EDITTEXT        IDC_CE_EXECUTE_CMD_EDIT,52,48,144,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_TARGET_WIN_COMBO,52,22,144,95,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM Port:",IDC_STATIC,16,24,34,8
+    LTEXT           "Command:",IDC_STATIC,16,49,35,8
+END
+
+IDD_SAVE_CONFIGURATION_DLG DIALOGEX 0, 0, 292, 157
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Save Configuration"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Save",IDC_SAVE_BTN,136,136,71,14
+    CONTROL         "Scripts",IDC_SC_SAVE_SCRIPTS_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,18,37,10
+    CONTROL         "TFTP Files",IDC_SC_SAVE_TFTP_FILES_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,34,48,10
+    CONTROL         "Current Window Sessions (COM Port, Baud Rate...)",IDC_SC_CURR_WIN_SESSION_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,82,181,10
+    CONTROL         "Command Executer Files",IDC_SC_SAVE_COMMAND_EXE_FILES_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,50,94,10
+    PUSHBUTTON      "...",IDC_SC_BROWSE_BTN,267,106,16,14
+    GROUPBOX        "Save:",IDC_STATIC,7,3,278,126
+    COMBOBOX        IDC_SC_CONFIG_FILE_PATH_COMBO,16,107,249,121,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Configuration file location:",IDC_STATIC,16,98,201,8
+    PUSHBUTTON      "Close",IDC_CANCEL_BTN,213,136,71,14
+    CONTROL         "Hardware Modules Settings",IDC_SC_SAVE_HWMODUELS_SETTINGS_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,66,103,10
+END
+
+IDD_APP_GENERAL_SETTINGS_DLG DIALOGEX 0, 0, 244, 214
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Updates",IDC_STATIC,7,6,229,33
+    CONTROL         "On exit, prompt to save entire application settings ",IDC_PROMPT_TO_SAVE_ENTIRE_SETTINGS_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,15,60,179,10
+    CONTROL         "Check for new updates on startup",IDC_CHECK_FOR_NEW_UPDATES,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,15,19,125,10
+    GROUPBOX        "Save Settings",IDC_STATIC,7,45,229,40
+    CONTROL         "Enable IPM messages on startup",IDC_ENABLE_IPM_MSG_ON_STARTUP,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,15,107,120,10
+    GROUPBOX        "IPM Messages",IDC_STATIC,7,91,229,40
+END
+
+IDD_COMMAND_EXE_PANE DIALOGEX 0, 0, 701, 107
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Command List:",IDC_CMD_LIST_FRAME_STATIC,6,3,339,97
+    PUSHBUTTON      "New",IDC_CE_NEW_CMD_BTN,293,15,45,17
+    PUSHBUTTON      "Remove",IDC_CE_REMOVE_CMD_BTN,293,34,45,17
+    PUSHBUTTON      "Remove All",IDC_CE_REMOVE_ALL_CMD_BTN,293,53,45,17
+    PUSHBUTTON      "File >>",IDC_CE_FILE_CMD_BTN,293,72,45,17
+    PUSHBUTTON      "Execute",IDC_CE_EXECUTE_BTN,623,76,63,19
+    GROUPBOX        "Log Window:",IDC_CMD_LIST_FRAME_STATIC2,344,3,275,97
+    CONTROL         "Infinite",IDC_CE_INFINITE_LOOP_CHECK,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,623,15,39,10
+    CONTROL         "",IDC_CE_STATUS_WINDOW_EDIT,"RichEdit20A",ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN | WS_BORDER | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,349,14,265,81
+    GROUPBOX        "",IDC_STATIC,618,3,77,97
+    CONTROL         "",IDC_CE_CMD_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_CHECKBOXES | WS_BORDER | WS_TABSTOP,14,14,274,81
+    EDITTEXT        IDC_CE_LOOP_COUNT_EDIT,623,37,43,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Loop Count:",IDC_STATIC,623,28,40,8
+    LTEXT           "0",IDC_CE_LOOP_COUNT_STATIC,668,39,22,8
+    PUSHBUTTON      "More Options >>",IDC_CE_MORE_OPTIONS_BTN,623,54,63,19
+END
+
+IDD_CE_TOGGLE_COM_DLG DIALOGEX 0, 0, 188, 124
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Toggle COM connection"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,77,103,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,131,103,50,14
+    GROUPBOX        "COM Connection:",IDC_STATIC,7,7,174,88
+    COMBOBOX        IDC_TARGET_WIN_COMBO,53,19,120,108,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM Port:",IDC_STATIC,17,21,34,8
+    CONTROL         "Disconnect",IDC_CE_COM_TOGGLE_DIS_CHECK,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,16,41,51,10
+    CONTROL         "Connect",IDC_CE_COM_TOGGLE_CON_CHECK,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,16,77,43,10
+    EDITTEXT        IDC_CE_COM_TOGGLE_DELAY_EDIT,50,58,38,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Delay:",IDC_STATIC,28,60,22,8
+    LTEXT           "ms",IDC_STATIC,89,60,10,8
+END
+
+IDC_IO_CARD_DLG DIALOGEX 0, 0, 232, 129
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "IO Card"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Execute",IDOK,119,107,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,175,107,50,14
+    LTEXT           "Toggle IO#:",IDC_STATIC,15,20,40,8
+    GROUPBOX        "IO Control:",IDC_STATIC,6,3,220,100
+    EDITTEXT        IDC_IO_CARD_CTRL_TOGGLEIO_EDIT,57,18,40,14,ES_AUTOHSCROLL
+    CONTROL         "On",IDC_IO_CARD_CTRL_ON_RADIO,"Button",BS_AUTORADIOBUTTON,153,21,25,10
+    CONTROL         "Off",IDC_IO_CARD_CTRL_OFF_RADIO,"Button",BS_AUTORADIOBUTTON,183,21,25,10
+    LTEXT           "Delay:",IDC_STATIC,33,58,22,8
+    EDITTEXT        IDC_IO_CARD_CTRL_DELAY_EDIT,57,56,40,14,ES_AUTOHSCROLL
+    LTEXT           "Initial State:",IDC_STATIC,106,21,40,8
+    LTEXT           "ms",IDC_STATIC,100,58,10,8
+    LTEXT           "Toggle IO#:",IDC_STATIC,15,80,40,8
+    EDITTEXT        IDC_IO_CARD_CTRL_TOGGLEIO_EDIT2,57,78,40,14,ES_AUTOHSCROLL | WS_DISABLED
+    CONTROL         "On",IDC_IO_CARD_CTRL_ON_RADIO2,"Button",BS_AUTORADIOBUTTON | WS_DISABLED,153,80,25,10
+    CONTROL         "Off",IDC_IO_CARD_CTRL_OFF_RADIO2,"Button",BS_AUTORADIOBUTTON | WS_DISABLED,183,80,25,10
+    CONTROL         "Enable Pulse Mode",IDC_IO_CARD_CTRL_EN_PULSE_MODE_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,39,75,10
+END
+
+IDD_CE_CLEAR_WIN_DLG DIALOGEX 0, 0, 182, 74
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Clear Window"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,70,54,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,125,54,50,14
+    GROUPBOX        "Clear Window:",IDC_STATIC,7,3,168,45
+    COMBOBOX        IDC_TARGET_WIN_COMBO,53,21,111,106,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "COM Port:",IDC_STATIC,16,23,34,8
+END
+
+IDD_HARDWARE_MODULES_PANE DIALOGEX 0, 0, 196, 523
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Detected Hardware Modules:",-1,5,7,184,509
+    CONTROL         "",IDC_HW_MODULE_TREE_CTRL,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,11,18,170,481
+    CONTROL         "Detect Hardware Modules On Startup",IDC_HW_MODULE_PANE_DET_ON_STARTUP,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,11,502,136,10
+END
+
+IDD_ODPG_CTRL_DLG DIALOGEX 0, 0, 366, 314
+STYLE DS_SETFONT | DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ODPG Control"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "Start",IDOK,253,292,50,15
+    PUSHBUTTON      "Cancel",IDCANCEL,309,292,50,15
+    EDITTEXT        IDC_ODPG_CTRL_DATA_BUS_ADDR_EDIT,294,97,55,12,ES_UPPERCASE | ES_AUTOHSCROLL
+    LTEXT           "Address:",IDC_STATIC,263,98,28,8
+    CONTROL         "",IDC_ODPG_CTRL_PATTERN_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_CHECKBOXES | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,7,176,276
+    CONTROL         "Data",IDC_ODPG_CTRL_DATA_BUS_RADIO,"Button",BS_AUTORADIOBUTTON,200,97,31,10
+    CONTROL         "Control",IDC_ODPG_CTRL_BUS_RADIO,"Button",BS_AUTORADIOBUTTON,200,113,39,10
+    LTEXT           "Width:",IDC_STATIC,201,130,22,8
+    GROUPBOX        "Bus:",IDC_STATIC,190,84,169,80
+    GROUPBOX        "Stop Condition:",IDC_STATIC,190,166,169,117
+    CONTROL         "Single Pattern - Stop upon end of pattern",IDC_ODPG_CTRL_STOP_COND_SINGLE_PATTERN_RADIO,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,200,197,149,10
+    CONTROL         "Pre-defined address space",IDC_ODPG_CTRL_STOP_COND_PRE_DEF_ADDR_RADIO,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,200,214,101,10
+    CONTROL         "Erroneous data received",IDC_ODPG_CTRL_STOP_COND_ERR_DATA_RADIO,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,200,231,95,10
+    GROUPBOX        "Read/Write:",IDC_STATIC,190,36,169,46
+    CONTROL         "Compare Data",IDC_ODPG_CTRL_READ_COMP_DATA_CHECK,"Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,267,49,62,10
+    CONTROL         "Pre-defined number of phases",IDC_ODPG_CTRL_STOP_COND_PRE_DEF_PHASE_COUNT_RADIO,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,200,248,113,10
+    EDITTEXT        IDC_ODPG_CTRL_STOP_COND_PRE_DEF_PHASE_COUNT_EDIT,213,261,55,12,ES_AUTOHSCROLL
+    CONTROL         "Continuous operation until manual stop",IDC_ODPG_CTRL_STOP_COND_CONT_RADIO,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,200,180,141,10
+    COMBOBOX        IDC_ODPG_CTRL_BUS_WIDTH_COMBO,200,139,65,70,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Set Target Device:",IDC_STATIC,190,3,169,31
+    COMBOBOX        IDC_ODPG_CTRL_TARGET_DEVICE_COMBO,200,15,125,127,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Register Read/Write ",IDC_ODPG_CTRL_RW_REG_BTN,7,293,80,15
+    CONTROL         "Read",IDC_ODPG_CTRL_READ_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,200,49,33,10
+    CONTROL         "Write",IDC_ODPG_CTRL_WRITE_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,200,65,33,10
+END
+
+IDD_ODPG_CTRL_READWRITE_REG_DLG DIALOGEX 0, 0, 254, 106
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Read/Write Register"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Execute",IDC_ODPG_CTRL_EXE_BTN,140,85,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,197,85,50,14
+    GROUPBOX        "Read/Write Register:",IDC_STATIC,7,3,241,74
+    CONTROL         "Read",IDC_ODPG_CTRL_REG_READ_RADIO,"Button",BS_AUTORADIOBUTTON,15,42,33,10
+    CONTROL         "Write",IDC_ODPG_CTRL_REG_WRITE_RADIO,"Button",BS_AUTORADIOBUTTON,15,60,33,10
+    EDITTEXT        IDC_ODPG_CTRL_REG_RW_OFFSET_EDIT,43,19,68,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ODPG_CTRL_REG_RW_VALUE_EDIT,144,19,68,13,ES_AUTOHSCROLL
+    LTEXT           "Offset:",IDC_STATIC,17,21,24,8
+    LTEXT           "Value:",IDC_STATIC,122,21,21,8
+END
+
+IDD_UNKNOWN_I2C_DEV_CTRL_DLG DIALOGEX 0, 0, 290, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Unknown I2C Device Control"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Execute",IDOK,160,75,55,14
+    PUSHBUTTON      "Cancel",IDCANCEL,228,75,55,14
+    CONTROL         "Send Stop Bit",IDC_GEN_I2C_DEV_CTRL_SEND_STOP_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,52,59,10
+    CONTROL         "Read",IDC_GEN_I2C_DEV_CTRL_READ_RADIO,"Button",BS_AUTORADIOBUTTON,18,33,33,10
+    CONTROL         "Write",IDC_GEN_I2C_DEV_CTRL_WRITE_RADIO,"Button",BS_AUTORADIOBUTTON,18,16,33,10
+    GROUPBOX        "Transaction Type:",IDC_STATIC,7,3,138,67
+    GROUPBOX        "Data (Bytes):",IDC_STATIC,150,3,133,67
+    EDITTEXT        IDC_GEN_I2C_DEV_CTRL_HEX_EDIT,156,13,121,51,ES_MULTILINE | WS_VSCROLL
+    EDITTEXT        IDC_GEN_I2C_DEV_CTRL_READ_BC_EDIT,101,32,37,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Byte Count:",IDC_STATIC,61,34,39,8
+END
+
+IDD_CE_UNKNOWN_I2C_DEV_RW_DLG DIALOGEX 0, 0, 283, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Unknown I2C Device Control"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,160,75,55,14
+    PUSHBUTTON      "Cancel",IDCANCEL,221,75,55,14
+    CONTROL         "Send Stop Bit",IDC_CE_GENERIC_I2C_DEV_RW_SEND_STOP_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,52,59,10
+    CONTROL         "Read",IDC_CE_GENERIC_I2C_DEV_RW_READ_RADIO,"Button",BS_AUTORADIOBUTTON,18,33,33,10
+    CONTROL         "Write",IDC_CE_GENERIC_I2C_DEV_RW_WRITE_RADIO,"Button",BS_AUTORADIOBUTTON,18,16,33,10
+    GROUPBOX        "Transaction Type:",IDC_STATIC,7,3,138,67
+    GROUPBOX        "Data (Bytes):",IDC_STATIC,149,3,127,67
+    EDITTEXT        IDC_CE_GENERIC_I2C_DEV_RW_HEX_EDIT,156,13,114,51,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CE_GENERIC_I2C_DEV_RW_BC_EDIT,101,32,37,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Byte Count:",IDC_STATIC,61,34,39,10
+END
+
+IDD_ODPG_SELECT_PATTERN_BIT_DLG DIALOGEX 0, 0, 120, 65
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Pattern Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,34,44,50,14
+    COMBOBOX        IDC_ODPG_PATTERN_BIT_COMBO,15,15,89,268,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Victim Bit:",IDC_SEL_BIT_STATIC,7,3,106,33
+END
+
+IDD_CE_CMD_SEQ_DLG DIALOGEX 0, 0, 342, 258
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set Custom Execution Sequence"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,123,237,50,14
+    CONTROL         "",IDC_CE_CMD_SEQ_DST_TREE,"SysTreeView32",TVS_HASLINES | TVS_LINESATROOT | TVS_NOSCROLL | WS_BORDER | WS_TABSTOP,174,31,161,198
+    CONTROL         "",IDC_CE_CMD_SEQ_SRC_TREE,"SysTreeView32",TVS_HASLINES | TVS_LINESATROOT | TVS_NOSCROLL | WS_BORDER | WS_TABSTOP,7,31,161,198
+    LTEXT           "Command List:",IDC_STATIC,7,22,92,8
+    LTEXT           "Custom Execution Sequence:",IDC_STATIC,174,22,114,8
+    PUSHBUTTON      "Clear All",IDC_CE_CMD_SEQ_CLEAR_ALL_BTN,285,237,50,14
+    PUSHBUTTON      "Reset",IDC_CE_CMD_SEQ_RESET_BTN,231,237,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,177,237,50,14
+    LTEXT           "Drag items from the left window to the right window to create new execution sequence:",IDC_STATIC,7,7,328,8
+    CONTROL         "Enable Custom Sequence",IDC_ENABLE_SEQ_EXE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,239,97,10
+END
+
+IDD_SUB20_ADC_CTRL_DLG DIALOGEX 0, 0, 186, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SUB-20 ADC Control"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,71,74,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,74,50,14
+END
+
+IDD_SUMMIT_SMM205_DLG DIALOGEX 0, 0, 260, 92
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Summit SMM205"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Exectue",IDOK,146,70,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,203,70,50,14
+    GROUPBOX        "Voltage Control:",IDC_STATIC,7,3,246,60
+    CONTROL         "Read",IDC_SUMMIT_SMM205_CTRL_READ_RADIO,"Button",BS_AUTORADIOBUTTON,15,41,33,10
+    CONTROL         "Write",IDC_SUMMIT_SMM205_CTRL_WRITE_RADIO,"Button",BS_AUTORADIOBUTTON,15,20,33,10
+    EDITTEXT        IDC_SUMMIT_SMM205_CTRL_VOL_EDIT,128,29,51,13,ES_AUTOHSCROLL
+    LTEXT           "Value:",IDC_STATIC,106,31,20,8
+    LTEXT           "mV",IDC_STATIC,182,31,10,8
+    PUSHBUTTON      "Settings",IDC_SUMMIT_DLG_SETTINGS_BTN,7,70,50,14
+    LTEXT           "[0..3300]",IDC_SUMMIT_MIN_MAX_STATIC,50,21,67,8
+END
+
+IDD_HW_MODULE_PROPERTIES_DLG DIALOGEX 0, 0, 189, 122
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,75,101,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,132,101,50,14
+    GROUPBOX        "Properties",IDC_STATIC,7,3,175,93
+    EDITTEXT        IDC_HW_MODULE_PROP_DIS_NAME,67,18,109,13,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,45,38,20,8,0,WS_EX_RIGHT
+    LTEXT           "Display Name:",IDC_STATIC,11,19,54,8,0,WS_EX_RIGHT
+    EDITTEXT        IDC_HW_MODULE_PROP_NAME,67,37,109,13,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_HW_MODULE_PROP_IF_NAME,67,56,109,13,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Interface:",IDC_STATIC,24,58,41,8,0,WS_EX_RIGHT
+    LTEXT           "ID:",IDC_ID_STATIC,14,75,51,8,0,WS_EX_RIGHT
+    EDITTEXT        IDC_HW_MODULE_PROP_ID,67,74,109,13,ES_AUTOHSCROLL | ES_READONLY
+END
+
+IDD_SUB20_HW_MODULE_CTRL_ADC_UNIT_CUR_VOL_ITEM_MODLS_DLG DIALOGEX 0, 0, 470, 247
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ADC Current"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Close",IDCANCEL,407,226,56,14
+    CONTROL         "",IDC_HW_MODULE_ADC_MOD_DLG_GRAPH_STATIC,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN,124,7,339,131,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN | WS_DISABLED,7,218,456,1
+    EDITTEXT        IDC_HW_MODULE_ADC_MOD_DLG_VOL_NAME_EDIT,16,16,93,13,ES_AUTOHSCROLL
+    GROUPBOX        "Name (Optional):",IDC_STATIC,7,3,110,34
+    GROUPBOX        "Range (mV):",IDC_HW_MODULE_ADC_MOD_DLG_VOL_CUR_RANGE_STATIC,7,40,110,98
+    GROUPBOX        "Statistics (mV):",IDC_HW_MODULE_ADC_MOD_DLG_VOL_CUR_STATS_STATIC,276,141,187,70
+    EDITTEXT        IDC_HW_MODULE_ADC_MOD_DLG_VOL_STAT_AVRG_EDIT,349,188,46,13,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    RTEXT           "Average:",IDC_STATIC,316,190,31,8
+    EDITTEXT        IDC_HW_MODULE_ADC_MOD_DLG_VOL_STAT_MIN_EDIT,349,152,45,13,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_HW_MODULE_ADC_MOD_DLG_VOL_STAT_MAX_EDIT,349,170,46,13,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Min Value Sampled:",IDC_STATIC,286,154,62,8
+    RTEXT           "Max Value Sampled:",IDC_STATIC,284,171,64,8
+    PUSHBUTTON      "Reset",IDC_HW_MODULE_ADC_MOD_DLG_RESET_BTN,413,170,41,13
+    CONTROL         "",IDC_HW_MODULE_ADC_MOD_DLG_VOL_SAMPLE_RATE_SLIDER,
+                    "msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,191,154,57,12
+    PUSHBUTTON      "Start",IDC_HW_MODULE_ADC_MOD_DLG_PAUSE_BTN,413,152,41,13
+    CONTROL         "Show in graph",IDC_HW_MODULE_ADC_MOD_DLG_VOL_STAT_AVRG_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,399,191,57,8
+    CTEXT           "",IDC_HW_MODULE_ADC_MOD_DLG_VOL_STAT_SAMPLE_RATE_STATIC,247,155,17,8
+    GROUPBOX        "Graph Settings:",IDC_STATIC,124,141,146,70
+    CONTROL         "Show grid",IDC_HW_MODULE_ADC_MOD_DLG_SHOW_GRID_CHECK,
+                    "Button",BS_AUTOCHECKBOX | BS_FLAT | WS_TABSTOP,133,184,47,9
+    RTEXT           "Sample Rate (ms):",IDC_STATIC,131,154,61,8
+    RTEXT           "Interval (pxl):",IDC_STATIC,140,169,52,8
+    CONTROL         "",IDC_HW_MODULE_ADC_MOD_DLG_VOL_SAMPLE_INTERVAL_SLIDER,
+                    "msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,191,169,57,12
+    LTEXT           "Grid Size:",IDC_STATIC,162,195,32,8
+    CTEXT           "",IDC_HW_MODULE_ADC_MOD_DLG_VOL_STAT_SAMPLE_INT_STATIC,247,170,17,8
+    CONTROL         "",IDC_HW_MODULE_ADC_MOD_DLG_VOL_GRID_SIZE_SLIDER,
+                    "msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,191,194,57,12
+    CTEXT           "",IDC_HW_MODULE_ADC_MOD_DLG_VOL_GRID_SIZE_STATIC,247,194,17,8
+    EDITTEXT        IDC_HW_MODULE_ADC_MOD_DLG_VOL_RESISTOR_EDIT,16,154,93,13,ES_CENTER | ES_AUTOHSCROLL
+    GROUPBOX        "Resistor Value (mOHM):",IDC_HW_MODULE_ADC_MOD_DLG_VOL_RESISTOR_VAL_STATIC,7,141,110,34
+    CONTROL         "",IDC_SUB20_HWMODULE_ADC_CUR_VOL_AMP_SLIDER,
+                    "msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,35,63,74,12
+    CONTROL         "",IDC_SUB20_HWMODULE_ADC_CUR_VOL_OFFSET_SLIDER,
+                    "msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,35,102,74,12
+    LTEXT           "Amp:",IDC_STATIC,18,63,18,8
+    LTEXT           "Offset:",IDC_STATIC,12,103,24,8
+    LTEXT           "0",IDC_STATIC,39,74,8,8
+    CTEXT           "3300",IDC_HW_MODULE_CTRL_CUR_VOL_AMP_SLIDER_STATIC,58,74,25,8
+    LTEXT           "0",IDC_STATIC,39,113,8,8
+    CTEXT           "3300",IDC_HW_MODULE_CTRL_CUR_VOL_OFFSET_SLIDER_STATIC,58,113,25,8
+    PUSHBUTTON      "Export to Excel",IDC_HW_MODULE_ADC_MOD_DLG_XL_SNAPSHOT_BTN,340,226,61,14
+    LTEXT           "15000",IDC_MAX_AMP_STATIC,93,74,21,8
+    LTEXT           "15000",IDC_MAX_OFFSET_STATIC,94,113,21,8
+END
+
+IDD_CLOCK_ETP_DLG DIALOGEX 0, 0, 218, 105
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Clock ETP"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Execute",IDOK,104,84,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,161,84,50,14
+    GROUPBOX        "Frequency Control:",IDC_STATIC,7,3,204,75
+    EDITTEXT        IDC_CLOCK_ETP_CTRL_FREQ_EDIT,62,19,68,13,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Frequency:",IDC_STATIC,24,20,37,8,0,WS_EX_RIGHT
+    LTEXT           "KHz",IDC_STATIC,132,21,13,8
+    EDITTEXT        IDC_CLOCK_ETP_CTRL_REF_EDIT,62,37,68,13,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Reference:",IDC_STATIC,24,38,37,8,0,WS_EX_RIGHT
+    EDITTEXT        IDC_CLOCK_ETP_CTRL_RANGE_EDIT,62,55,68,13,ES_AUTOHSCROLL | ES_NUMBER
+    RTEXT           "Range [0..7]:",IDC_STATIC,16,56,45,8,0,WS_EX_RIGHT
+    LTEXT           "KHz",IDC_STATIC,132,40,13,8
+END
+
+IDD_SUB20_GPIO_UNIT_DLG DIALOGEX 0, 0, 334, 158
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "GPIO Unit"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Update All",IDC_GPIO_UNIT_UPDATE_ALL_BTN,260,25,67,14
+    PUSHBUTTON      "Close",IDCANCEL,260,137,67,14
+    CONTROL         "",IDC_SUB20_GPIO_UNIT_LIST_CTRL,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_NOLABELWRAP | LVS_EDITLABELS | LVS_ALIGNLEFT | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP,7,7,247,144
+    PUSHBUTTON      "Update Selected",IDC_GPIO_UNIT_UPDATE_SELECTED_BTN,260,7,67,14
+    PUSHBUTTON      "Restore Defaults",IDC_GPIO_UNIT_RESTORE_DEFAULTS_BTN,260,119,67,14
+END
+
+IDD_SUMMIT_SMM205_SETTINGS_DLG DIALOGEX 0, 0, 183, 157
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Summit SMM205 Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,70,136,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,127,136,50,14
+    GROUPBOX        "Settings:",IDC_STATIC,7,3,169,129
+    EDITTEXT        IDC_SUMMIT_SMM205_SETTINGS_NAME_EDIT,50,19,117,13,ES_AUTOHSCROLL
+    LTEXT           "Name:",IDC_STATIC,27,21,20,8
+    EDITTEXT        IDC_SUMMIT_SMM205_SETTINGS_MIN_EDIT,50,39,51,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Min:",IDC_STATIC,34,40,12,8
+    EDITTEXT        IDC_SUMMIT_SMM205_SETTINGS_MAX_EDIT,50,59,51,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Max:",IDC_STATIC,31,60,15,8
+    LTEXT           "mV",IDC_STATIC,104,42,10,8
+    LTEXT           "mV",IDC_STATIC,104,63,10,8
+    EDITTEXT        IDC_SUMMIT_SMM205_SETTINGS_EXT_REF_EDIT,50,79,51,13,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "Ext Ref:",IDC_STATIC,21,81,27,8
+    LTEXT           "mV",IDC_STATIC,104,82,10,8
+    CONTROL         "Channel B",IDC_SUMMIT_CHANNEL_B_RADIO,"Button",BS_AUTORADIOBUTTON,55,114,48,10
+    CONTROL         "Channel A",IDC_SUMMIT_CHANNEL_A_RADIO,"Button",BS_AUTORADIOBUTTON,55,100,48,10
+    LTEXT           "Channel:",IDC_STATIC,20,100,30,8
+END
+
+IDD_MVT_UPDATE_DLG DIALOGEX 0, 0, 382, 199
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MVTerminal Update"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Update",IDOK,228,178,71,14
+    PUSHBUTTON      "Ignore",IDCANCEL,304,178,71,14
+    CONTROL         "",IDC_MVT_UPDATE_HISTORY_EDIT,"RichEdit20A",ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_BORDER | WS_VSCROLL | WS_TABSTOP,7,19,368,153
+    LTEXT           "New version of MVTerminal is available (Version 6.2), would you like to update?",IDC_MVT_UPDATE_STATIC,7,7,313,9
+END
+
+IDD_MARVELL_DEVICE_HWMODULE_DLG DIALOGEX 0, 0, 254, 106
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Read/Write Register"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Execute",IDOK,140,85,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,197,85,50,14
+    GROUPBOX        "Read/Write Register:",IDC_STATIC,7,3,241,74
+    CONTROL         "Read",IDC_MARVELL_DEVICE_HWMODULE_READ_RADIO,"Button",BS_AUTORADIOBUTTON,15,42,33,10
+    CONTROL         "Write",IDC_MARVELL_DEVICE_HWMODULE_WRITE_RADIO,"Button",BS_AUTORADIOBUTTON,15,60,33,10
+    EDITTEXT        IDC_MARVELL_DEVICE_HWMODULE_OFFSET_EDIT,73,19,68,13,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MARVELL_DEVICE_HWMODULE_VALUE_EDIT,171,19,68,13,ES_AUTOHSCROLL
+    LTEXT           "Address (32-bit):",IDC_STATIC,17,21,56,8
+    LTEXT           "Value:",IDC_STATIC,149,21,21,8
+END
+
+IDD_APP_POWER_CTRL_SETTINGS_DLG DIALOGEX 0, 0, 244, 214
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Toggle Board Power Using:",IDC_STATIC,7,6,229,99
+    COMBOBOX        IDC_POWER_CTRL_TOGGLE_POWER_IO_STATE_COMBO,188,46,34,46,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_POWER_CTRL_RESET_IO_STATE_COMBO,188,148,34,52,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_BOARD_RESET_HWMODULE_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,15,119,121,80
+    GROUPBOX        "Reset Board Using:",IDC_STATIC,7,107,229,99
+    CONTROL         "",IDC_BOARD_POWER_HWMODULE_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,15,18,121,80
+    GROUPBOX        "IO Settings:",IDC_STATIC,141,115,88,84
+    LTEXT           "Number:",IDC_STATIC,159,131,28,8
+    GROUPBOX        "IO Settings:",IDC_STATIC,141,14,88,84
+    LTEXT           "Number:",IDC_POWER_CTRL_TOGGLE_POWER_IO_NUMBER_STATIC,159,30,28,8
+    LTEXT           "Initial State:",IDC_POWER_CTRL_TOGGLE_POWER_IO_STATE_STATIC,147,48,40,8
+    COMBOBOX        IDC_POWER_CTRL_TOGGLE_POWER_IO_NUMBER_COMBO,188,28,34,258,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_POWER_CTRL_RESET_IO_NUMBER_COMBO,188,130,34,187,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Initial State:",IDC_POWER_CTRL_TOGGLE_POWER_IO_STATE_STATIC2,147,150,40,8
+END
+
+IDD_PLATFORM_INFO_PANE DIALOGEX 0, 0, 701, 107
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Platform:",IDC_PLATFORM_INFO_TREE_FRAME_STATIC,6,3,340,97
+    CONTROL         "",IDC_PLATFORM_INFO_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,12,13,327,81,WS_EX_CLIENTEDGE
+    PUSHBUTTON      "Restore Defaults",IDC_RESTORE_PLATFORM_INFO_DEFAULTS_BTN,352,78,66,15
+END
+
+IDD_MARVELL_DEVICE_PM_HWMODULE_DLG DIALOGEX 0, 0, 481, 214
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Read/Write Register"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Start",IDOK,365,193,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,422,193,50,14
+    CONTROL         "",IDC_MARVELL_DEVICE_PM_GRAPH,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN,7,7,467,178,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+END
+
+IDD_MARVELL_DEVICE_SYSTEM_PROFILER_HWMODULE_DLG DIALOGEX 0, 0, 603, 421
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "System Profiler"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Start",IDOK,448,400,69,14
+    PUSHBUTTON      "Close",IDCANCEL,527,400,69,14
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_GRAPH1,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN,185,14,402,72,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_GRAPH2,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN,185,107,402,72,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_GRAPH3,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN,185,200,402,72,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_GRAPH4,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_SUNKEN,185,293,402,72,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_TREE1,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_NOHSCROLL | WS_BORDER | WS_TABSTOP,15,14,155,72
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_TREE4,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_NOHSCROLL | WS_BORDER | WS_TABSTOP,15,293,155,72
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_TREE3,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_NOHSCROLL | WS_BORDER | WS_TABSTOP,15,200,155,72
+    CONTROL         "",IDC_MARVELL_DEVICE_SP_TREE2,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | TVS_NOHSCROLL | WS_BORDER | WS_TABSTOP,15,107,155,72
+    PUSHBUTTON      "Load Events...",IDC_SYS_PROFILER_LOAD_EVENTS_BTN,7,377,69,14
+    GROUPBOX        "Graph#1 Events",IDC_STATIC,7,3,171,90
+    GROUPBOX        "",IDC_EVENT_GRAPH1_STATIC,177,3,419,90
+    GROUPBOX        "Graph#2 Events:",IDC_STATIC,7,96,171,90
+    GROUPBOX        "",IDC_EVENT_GRAPH2_STATIC,177,96,419,90
+    GROUPBOX        "Graph#3 Events",IDC_STATIC,7,189,171,90
+    GROUPBOX        "",IDC_EVENT_GRAPH3_STATIC,177,189,419,90
+    GROUPBOX        "Graph#4 Events",IDC_STATIC,7,282,171,90
+    GROUPBOX        "",IDC_EVENT_GRAPH4_STATIC,177,282,419,90
+    PUSHBUTTON      "Log View",IDC_SYS_PROFILER_OPTION_BUTTON,7,400,69,14
+    CONTROL         "Reload last file on startup",IDC_RELOAD_LAST_EVENTS_CHECK,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,89,380,98,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 6,4,0,0
+ PRODUCTVERSION 6,4,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x29L
+#else
+ FILEFLAGS 0x28L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "Comments", "No Comments"
+            VALUE "CompanyName", "Marvell Semiconductors Inc."
+            VALUE "FileDescription", "MVTerminal Application"
+            VALUE "FileVersion", "6.4"
+            VALUE "InternalName", "MVTerminal.exe"
+            VALUE "LegalCopyright", "Marvell Semiconductors Inc.  All rights reserved."
+            VALUE "LegalTrademarks", "None"
+            VALUE "OriginalFilename", "MVTerminal.exe"
+            VALUE "PrivateBuild", "None"
+            VALUE "ProductName", "MVTerminal"
+            VALUE "ProductVersion", "6.4"
+            VALUE "SpecialBuild", "None"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 294
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 77
+    END
+
+    IDD_CONNECTION_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_TFTP_SERVER_PANE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 694
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 100
+    END
+
+    IDD_SEND_SCRIPT_PANE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 659
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 100
+    END
+
+    IDD_VIEW_PROPERTIES, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 218
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 221
+    END
+
+    IDD_MONITOR_PARAMS_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 199
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 173
+    END
+
+    IDD_APP_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 257
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 259
+    END
+
+    IDD_APP_SCRIPT_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 207
+    END
+
+    IDD_DATA_ANALYZER_PANE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 596
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 98
+    END
+
+    IDD_APP_APPEARANCE_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 207
+    END
+
+    IDD_CMD_HISTORY_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_APP_TFTP_SERVER_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 207
+    END
+
+    IDD_SEND_EMAIL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 174
+    END
+
+    IDD_MAIL_SETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 185
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 125
+    END
+
+    IDD_VIEW_MESSAGING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 198
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+
+    IDD_IP_ADDRESS_LIST_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 164
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 107
+    END
+
+    IDD_HW_MODULES_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 160
+    END
+
+    IDD_CE_CHECK_RESULT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 248
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 123
+    END
+
+    IDD_CMD_EXE_CMD_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 550
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 370
+    END
+
+    IDD_CE_SET_DELAY_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 209
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_CE_WAIT_FOR_STR_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 190
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 112
+    END
+
+    IDD_CE_EXE_CMD_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 204
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_SAVE_CONFIGURATION_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 285
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 150
+    END
+
+    IDD_APP_GENERAL_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 207
+    END
+
+    IDD_COMMAND_EXE_PANE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 694
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 100
+    END
+
+    IDD_CE_TOGGLE_COM_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 117
+    END
+
+    IDC_IO_CARD_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 225
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 122
+    END
+
+    IDD_CE_CLEAR_WIN_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 175
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 67
+    END
+
+    IDD_HARDWARE_MODULES_PANE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 189
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 516
+        HORZGUIDE, 506
+    END
+
+    IDD_ODPG_CTRL_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 359
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 307
+    END
+
+    IDD_ODPG_CTRL_READWRITE_REG_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 99
+    END
+
+    IDD_UNKNOWN_I2C_DEV_CTRL_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 283
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_CE_UNKNOWN_I2C_DEV_RW_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 276
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_ODPG_SELECT_PATTERN_BIT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 113
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 58
+    END
+
+    IDD_CE_CMD_SEQ_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 335
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 251
+    END
+
+    IDD_SUB20_ADC_CTRL_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_SUMMIT_SMM205_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 253
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 85
+    END
+
+    IDD_HW_MODULE_PROPERTIES_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 182
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 115
+    END
+
+    IDD_SUB20_HW_MODULE_CTRL_ADC_UNIT_CUR_VOL_ITEM_MODLS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 463
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 240
+    END
+
+    IDD_CLOCK_ETP_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 98
+    END
+
+    IDD_SUB20_GPIO_UNIT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 327
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 151
+    END
+
+    IDD_SUMMIT_SMM205_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 176
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 150
+    END
+
+    IDD_MVT_UPDATE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 375
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_MARVELL_DEVICE_HWMODULE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 99
+    END
+
+    IDD_APP_POWER_CTRL_SETTINGS_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 207
+    END
+
+    IDD_PLATFORM_INFO_PANE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 694
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 100
+    END
+
+    IDD_MARVELL_DEVICE_PM_HWMODULE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 474
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 207
+    END
+
+    IDD_MARVELL_DEVICE_SYSTEM_PROFILER_HWMODULE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 596
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 414
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_CONNECTION_SETTINGS_DLG DLGINIT
+BEGIN
+    IDC_BAUD_RATE_COMBO, 0x403, 7, 0
+0x3131, 0x3235, 0x3030, "\000" 
+    IDC_BAUD_RATE_COMBO, 0x403, 6, 0
+0x3735, 0x3036, 0x0030, 
+    IDC_BAUD_RATE_COMBO, 0x403, 6, 0
+0x3833, 0x3034, 0x0030, 
+    IDC_BAUD_RATE_COMBO, 0x403, 6, 0
+0x3931, 0x3032, 0x0030, 
+    IDC_BAUD_RATE_COMBO, 0x403, 5, 0
+0x3639, 0x3030, "\000" 
+    IDC_BAUD_RATE_COMBO, 0x403, 5, 0
+0x3834, 0x3030, "\000" 
+    IDC_BAUD_RATE_COMBO, 0x403, 5, 0
+0x3432, 0x3030, "\000" 
+    IDC_BAUD_RATE_COMBO, 0x403, 5, 0
+0x3231, 0x3030, "\000" 
+    IDC_WND_NAME_COMBO, 0x403, 10, 0
+0x6142, 0x6b63, 0x6c70, 0x6e61, 0x0065, 
+    IDC_WND_NAME_COMBO, 0x403, 20, 0
+0x4120, 0x6567, 0x746e, 0x6f20, 0x6576, 0x2072, 0x4350, 0x2f49, 0x4550, 
+0x0058, 
+    IDC_DATA_BITS_COMBO, 0x403, 2, 0
+0x0035, 
+    IDC_DATA_BITS_COMBO, 0x403, 2, 0
+0x0036, 
+    IDC_DATA_BITS_COMBO, 0x403, 2, 0
+0x0037, 
+    IDC_DATA_BITS_COMBO, 0x403, 2, 0
+0x0038, 
+    IDC_PARITY_COMBO, 0x403, 5, 0
+0x6f4e, 0x656e, "\000" 
+    IDC_PARITY_COMBO, 0x403, 4, 0
+0x644f, 0x0064, 
+    IDC_PARITY_COMBO, 0x403, 5, 0
+0x7645, 0x6e65, "\000" 
+    IDC_STOP_BITS_COMBO, 0x403, 2, 0
+0x0031, 
+    IDC_STOP_BITS_COMBO, 0x403, 2, 0
+0x0032, 
+    0
+END
+
+IDD_SEND_EMAIL DLGINIT
+BEGIN
+    IDC_MAIL_DURATION_COMBO, 0x403, 7, 0
+0x3033, 0x6d20, 0x6e69, "\000" 
+    IDC_MAIL_DURATION_COMBO, 0x403, 7, 0
+0x2031, 0x6f68, 0x7275, "\000" 
+    IDC_MAIL_DURATION_COMBO, 0x403, 8, 0
+0x2032, 0x6f68, 0x7275, 0x0073, 
+    IDC_MAIL_DURATION_COMBO, 0x403, 8, 0
+0x2033, 0x6f68, 0x7275, 0x0073, 
+    IDC_MAIL_DURATION_COMBO, 0x403, 8, 0
+0x2034, 0x6f68, 0x7275, 0x0073, 
+    IDC_MAIL_DURATION_COMBO, 0x403, 8, 0
+0x2038, 0x6f68, 0x7275, 0x0073, 
+    IDC_MAIL_DURATION_COMBO, 0x403, 6, 0
+0x2031, 0x6164, 0x0079, 
+    IDC_MAIL_DURATION_COMBO, 0x403, 7, 0
+0x2032, 0x6164, 0x7379, "\000" 
+    IDC_MAIL_DURATION_COMBO, 0x403, 7, 0
+0x2033, 0x6164, 0x7379, "\000" 
+    IDC_MAIL_DURATION_COMBO, 0x403, 7, 0
+0x2034, 0x6164, 0x7379, "\000" 
+    0
+END
+
+IDD_MAIL_SETTINGS DLGINIT
+BEGIN
+    IDC_MODE, 0x403, 7, 0
+0x6f4e, 0x6d72, 0x6c61, "\000" 
+    IDC_MODE, 0x403, 5, 0
+0x494d, 0x454d, "\000" 
+    IDC_MODE, 0x403, 9, 0
+0x5555, 0x6e45, 0x6f63, 0x6564, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "MVTerminal"
+    IDR_MVTerminalTYPE      "\nMVTerminal\nMVTerminal\n\n\nMVTerminal.Document\nMVTerminal.Document"
+    IDR_PANE_TFTP_SERVER    "TFTP Server"
+    IDR_PANE_SEND_SCRIPT    "Send Script"
+    ID_INDICATOR_STATUS     "Connection Status"
+    ID_INDICATOR_TIME       "Time Elapsed HH:MM:SS"
+    IDR_PANE_DATA_ANALYZER  "Data Analyzer"
+    ID_HISTORY_CMD          "Execute history command"
+    ID_HISTORY_CMD_CLEAR    "Clear command history"
+    IDR_PANE_HARDWARE_MODULES "Hardware Modules"
+    IDR_PANE_CMD_EXECUTER   "Command Executer"
+    IDR_PANE_PLATFORM_INFO  "Platform Info"
+    IDC_PROPERTY_GRID       "PlatformInfo Property Grid"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "MVTerminal"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+    ID_INDICATOR_LOGO       "REC"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "New Session"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy selected text and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut selected text and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find Text"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_PASTE_LINK      "Insert Clipboard contents and a link to its source\nPaste Link"
+    ID_EDIT_PASTE_SPECIAL   "Insert Clipboard contents with options\nPaste Special"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_OLE_INSERT_NEW       "Insert new embedded object\nNew Object"
+    ID_OLE_EDIT_LINKS       "Edit linked objects\nEdit Links"
+    ID_OLE_EDIT_CONVERT     "Convert object to different type\nConvert Object"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_OLE_VERB_FIRST       "Activate embedded or linked object"
+    57873                   "Activate embedded or linked object"
+    57874                   "Activate embedded or linked object"
+    57875                   "Activate embedded or linked object"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_PORT_DISCONNECT      "Disconnect"
+    ID_PORT_PROPERTIES      "Session Properties"
+    ID_PORT_CONNECT         "Connect"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_BUTTON32785          "View current window content"
+    ID_VIEW_WIN_CONTENT     "View Window Content"
+    ID_SETTINGS             "Settings"
+    ID_APP_SETTINGS         "Preferences"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_IOCARD_BOARD_RESET   "Board Reset"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_EXPORTCOMMANDLIST 
+                            "Export all command executer list content to file"
+    ID_FILE_IMPORTCOMMANDLIST "Import commands from file for command executer"
+    ID__CLEARWINDOW         "Clears the windows buffer content"
+    ID__SETDELAY            "Set fixed or random delay"
+    ID__EXECUTECOMMAND      "Execute command"
+    ID__CHECKRESULT         "Check result by comparing given string or file"
+    ID__WAITFORSTRING       "Wait for given amount of time until string is found in screen buffer"
+    ID__TOGGLEIO            "Toggle IO (on/off) over IO card"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_RESTORELASTCONFIGURATION 
+                            "Restore the last configuration that was used before the application was closed"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Hebrew resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_HEB)
+#ifdef _WIN32
+LANGUAGE LANG_HEBREW, SUBLANG_DEFAULT
+#pragma code_page(1255)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_GRAPH_ICON          ICON                    "res\\graphIcon.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_PI_DEVICE_BMP       BITMAP                  "res\\device.bmp"
+IDB_PI_BOARD_BMP        BITMAP                  "res\\board.bmp"
+IDB_PI_INFO_BMP         BITMAP                  "res\\PlatformInfo.bmp"
+IDB_PI_SUBUNIT_BMP      BITMAP                  "res\\subunit.bmp"
+IDB_PI_HWMODULE_BMP     BITMAP                  "res\\module.bmp"
+IDB_PI_SWMODULE_BMP     BITMAP                  "res\\swModule.bmp"
+IDB_PI_UNIT_DIS_BMP     BITMAP                  "res\\unit_dis.bmp"
+IDB_PI_UNIT_EN_BMP      BITMAP                  "res\\unit_en.bmp"
+IDB_GRAPH_ICON          BITMAP                  "res\\graphIcon.bmp"
+IDB_GRAPH_ICON_SEL      BITMAP                  "res\\graphIcon_sel.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_HW_MODULE_CTRL_UNIT_SET_I2C_FREQ_DLG DIALOGEX 0, 0, 135, 71
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "I2C Frequency"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,43,50,50,14
+    EDITTEXT        IDC_HW_MODULE_CTRL_UNIT_I2C_SET_FREQ_EDIT,15,21,91,12,ES_AUTOHSCROLL | ES_NUMBER
+    GROUPBOX        "I2C Frequency (Hz):",IDC_STATIC,7,7,121,36
+    LTEXT           "Hz",IDC_STATIC,109,23,13,8
+END
+
+IDD_PLATFORMINFOSETTINGSDLG DIALOGEX 0, 0, 444, 285
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Platform Info Settings"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDD_PLATFORMINFOSETTINGSTREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_SHOWSELALWAYS | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,7,213,250
+    CONTROL         "",IDC_GRID_PLACEHOLDER,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,224,7,213,250,WS_EX_CLIENTEDGE
+    PUSHBUTTON      "Close",IDC_SAVE_AS_DEFAULT_BTN,371,264,66,14
+    PUSHBUTTON      "Restore Defaults",IDC_RESTORE_DEFAULTS_BTN,7,264,66,14
+END
+
+IDD_TEMPERATURE_MONITOR_DLG DIALOGEX 0, 0, 268, 159
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Temperature Monitor"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,211,138,50,14
+    CONTROL         "",IDC_TEMP_MONITOR_GRAPH_STATIC,"Static",SS_BLACKFRAME,7,32,254,101,WS_EX_CLIENTEDGE
+    CTEXT           "",IDC_TEMP_LABEL_STATIC,82,7,104,21,0,WS_EX_CLIENTEDGE
+END
+
+IDD_PLATFORM_INFO_UPDATE_DIALOG DIALOGEX 0, 0, 316, 148
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "PlatformInfo Files Update"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Update",IDOK,205,127,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,259,127,50,14
+    LISTBOX         IDC_LIST2,7,24,302,98,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "",IDC_NEW_FILES_STATIC,7,4,302,16
+END
+
+IDD_SYS_PROFILER_LOG_DLG DIALOGEX 0, 0, 385, 399
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "System Profiler Log"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_RICHEDIT21,"RichEdit20A",ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_BORDER | WS_VSCROLL | WS_TABSTOP,7,7,371,385,WS_EX_CLIENTEDGE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_HW_MODULE_CTRL_UNIT_SET_I2C_FREQ_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 128
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 64
+    END
+
+    IDD_PLATFORMINFOSETTINGSDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 437
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 278
+    END
+
+    IDD_TEMPERATURE_MONITOR_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 261
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 152
+    END
+
+    IDD_PLATFORM_INFO_UPDATE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_SYS_PROFILER_LOG_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 378
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 392
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Hebrew resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MVTerminal.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#include "afxolecl.rc"       // OLE container resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
